@@ -1,0 +1,27 @@
+/* ==========================================================================
+   CHARTE GRAPHIQUE & VARIABLES GLOBALES (STYLE MODERN / FRAMER)
+   ========================================================================== */
+:root {
+  /* Palette neutre et moderne */
+  --color-bg: #F7F7F7;            /* Fond principal très clair */
+  --color-card: #FFFFFF;          /* Surfaces des cartes */
+  --color-text: #0D0D0D;          /* Texte principal sombre */
+  --color-muted: #666666;         /* Texte secondaire */
+  --color-border: #E5E5E5;        /* Bordures fines */
+  --color-green: #22C55E;         /* Pastille de statut "disponible" */
+
+  /* Typographie épurée */
+  --font-main: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Conteneurs et formes */
+  --max-width: 1140px;
+  --section-margin: 0 auto 100px;
+  --radius-pill: 9999px;          /* Boutons pilules */
+  --radius-card: 20px;            /* Arrondi des cartes */
+
+  /* Ombres & Micro-interactions */
+  --shadow-button: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.03);
+  --transition-fast: 0.2s ease;
+  --transition-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}

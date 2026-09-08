@@ -1,0 +1,98 @@
+/* ==========================================================================
+   SECTION CONTACT & FOOTER (STYLE MODERN / FRAMER)
+   ========================================================================== */
+.contact-section {
+  max-width: var(--max-width);
+  margin: var(--section-margin);
+  padding: 0 20px;
+}
+
+/* --- Carte Sombre de Contact --- */
+.contact-card {
+  background-color: #000000;
+  color: #FFFFFF;
+  border-radius: 28px;
+  padding: 60px 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.contact-cta h2 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.contact-cta p {
+  color: #AAAAAA;
+  font-size: 0.95rem;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+/* --- Liens & Coordonnées --- */
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+}
+
+.contact-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #262626;
+  padding-bottom: 14px;
+  font-size: 0.95rem;
+  transition: border-color var(--transition-fast);
+}
+
+.contact-item span:first-child {
+  color: #888888;
+  font-size: 0.88rem;
+}
+
+.contact-item span:last-child {
+  color: #FFFFFF;
+  font-weight: 500;
+  transition: transform var(--transition-fast);
+}
+
+a.contact-item:hover {
+  border-color: #555555;
+}
+
+a.contact-item:hover span:last-child {
+  transform: translateX(4px);
+}
+
+/* --- Footer --- */
+footer {
+  text-align: center;
+  padding: 40px 20px 20px;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
+
+/* ==========================================================================
+   RESPONSIVE (MOBILE & TABLETTE)
+   ========================================================================== */
+@media (max-width: 900px) {
+  .contact-card {
+    grid-template-columns: 1fr;
+    padding: 36px 24px;
+    gap: 32px;
+  }
+
+  .contact-cta h2 {
+    font-size: 1.8rem;
+  }
+
+  .contact-cta p {
+    margin-bottom: 24px;
+  }
+}

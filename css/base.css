@@ -1,0 +1,109 @@
+/* ==========================================================================
+   RESET & STYLES DE BASE (GLOBAL)
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-bg);
+  font-size: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* --- Traitement des images & médias --- */
+img, picture, video, canvas, svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --- Typographie & Liens --- */
+a {
+  color: inherit;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+button, input, textarea, select {
+  font: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+}
+
+/* --- Sélection de texte --- */
+::selection {
+  background-color: var(--color-text);
+  color: #FFFFFF;
+}
+
+::-moz-selection {
+  background-color: var(--color-text);
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   STRUCTURES & COMPOSANTS RÉUTILISABLES
+   ========================================================================== */
+section {
+  max-width: var(--max-width);
+  margin: var(--section-margin);
+  padding: 0 20px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  margin-top: 6px;
+}
+
+/* Style de bouton universel "Pilule" */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.btn-dark {
+  background-color: var(--color-text);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-button);
+}
+
+.btn-pill:hover {
+  transform: translateY(-2px);
+}

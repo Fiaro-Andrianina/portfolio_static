@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiaro Andrianina | Portfolio Éditorial & Tech</title>
+    
+    <!-- Polices Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Fichier CSS principal -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+    <!-- Navigation supérieure -->
+    <header class="navbar">
+        <div class="nav-brand">FIARO ANDRIANINA</div>
+        <nav class="nav-links">
+            <a href="#projects">Projets</a>
+            <a href="#skills">Compétences</a>
+            <a href="#contact">Contact</a>
+            <a href="#contact" class="status-text">Disponible pour opportunités &rarr;</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Section Hero -->
+        <section class="hero-framer">
+            <div class="hero-container">
+                <!-- Gauche -->
+                <div class="hero-left">
+                    <div class="status-badge">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Disponible pour opportunités</span>
+                    </div>
+                    <h1 class="hero-heading">INGÉNIEUR RÉSEAU & DÉVELOPPEUR FULL-STACK</h1>
+                </div>
+
+                <!-- Centre (Image) -->
+                <div class="hero-image-wrapper">
+                    <img src="images/un_profile.jpeg" alt="Fiaro Andrianina" class="hero-portrait">
+                    <div class="hero-fade-overlay"></div>
+                </div>
+
+                <!-- Droite -->
+                <div class="hero-right">
+                    <p class="hero-description">
+                        Spécialisé dans la conception d'architectures réseaux sécurisées, l'administration de serveurs Linux et le développement web moderne.
+                    </p>
+                    <div class="hero-cta-group" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <a href="#contact" class="hero-btn">Me Contacter</a>
+                        <a href="images/CV_Fiaro_Andrianina.docx" download class="hero-btn-secondary" style="padding: 12px 20px; border: 1px solid #111; border-radius: 8px; text-decoration: none; color: #111; font-weight: 500; font-size: 0.9rem;">
+                            Télécharger mon CV &darr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section À Propos -->
+        <section class="about-section" style="max-width: 1200px; margin: 80px auto; padding: 0 24px;">
+            <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 16px; padding: 40px; display: grid; grid-template-columns: 1fr 2fr; gap: 32px; align-items: center;">
+                <h2 class="section-title" style="margin: 0;">À PROPOS DE MOI</h2>
+                <p style="font-size: 1.05rem; line-height: 1.7; color: #333; margin: 0;">
+                    Passionné par le monde de la tech et bercé par l'univers des jeux vidéo, j'ai très tôt développé une curiosité pour la logique et le fonctionnement des systèmes. Doté d'une forte capacité d'adaptation et d'apprentissage rapide, j'aime relever des défis complexes, qu'il s'agisse de concevoir une infrastructure réseau résiliente ou de développer des solutions web intuitives.
+                </p>
+            </div>
+        </section>
+
+        <!-- Section Parcours / Formation -->
+        <section class="education-section" style="max-width: 1200px; margin: 100px auto; padding: 0 24px;">
+            <div class="section-header">
+                <h2 class="section-title">PARCOURS ACADÉMIQUE</h2>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 32px;">
+                <div style="padding: 24px; border: 1px solid #e5e5e5; border-radius: 12px; background: #fff;">
+                    <span style="font-size: 0.8rem; font-weight: 600; color: #666; text-transform: uppercase;">SPÉCIALISATION L3</span>
+                    <h3 style="font-size: 1.1rem; margin: 8px 0; font-weight: 700;">Génie Réseau & Infrastructures</h3>
+                    <p style="font-size: 0.9rem; color: #555; margin: 0; line-height: 1.5;">Conception d'architectures réseaux, routage, administration d'OS et gestion de la sécurité informatique.</p>
+                </div>
+
+                <div style="padding: 24px; border: 1px solid #e5e5e5; border-radius: 12px; background: #fff;">
+                    <span style="font-size: 0.8rem; font-weight: 600; color: #666; text-transform: uppercase;">TRONC COMMUN (2 ANS)</span>
+                    <h3 style="font-size: 1.1rem; margin: 8px 0; font-weight: 700;">Services Informatiques aux Organisations (SIO)</h3>
+                    <p style="font-size: 0.9rem; color: #555; margin: 0; line-height: 1.5;">Fondations en développement logiciel, gestion de bases de données et architectures des systèmes d'information.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Projets Sélectionnés -->
+        <section class="projects-section" id="projects">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">PROJETS SÉLECTIONNÉS</h2>
+                    <p class="section-subtitle">
+                        Une sélection de travaux combinant algorithmique complexe, infrastructures serveurs et ingénierie logicielle.
+                    </p>
+                </div>
+                <a href="https://github.com/Fiaro-Andrianina" target="_blank" rel="noopener noreferrer" class="view-all-link">VOIR TOUT SUR GITHUB &rarr;</a>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Projet 1 -->
+                <article class="project-card">
+                    <div class="project-image">
+                        <img src="images/taxibe_ako.png" alt="Projet Taxi-Be Ako">
+                    </div>
+                    <div class="project-info">
+                        <span class="project-number">01</span>
+                        <div class="project-details">
+                            <h3 class="project-title">TAXI-BE AKO</h3>
+                            <p class="project-category">Plateforme Web & Mobile • Mobilité Urbaine</p>
+                            <p style="font-size: 0.88rem; color: #555; margin-top: 8px; line-height: 1.5;">
+                                Solution numérique pour optimiser la mobilité à Antananarivo : centralisation des itinéraires, arrêts et calcul de correspondances pour la planification efficace des trajets.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Projet 2 -->
+                <article class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/project-network.jpg" alt="Infrastructures Réseau & Sécurité">
+                    </div>
+                    <div class="project-info">
+                        <span class="project-number">02</span>
+                        <div class="project-details">
+                            <h3 class="project-title">INFRASTRUCTURE INFRA</h3>
+                            <p class="project-category">DNS, DHCP, Apache2 & Linux Security</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Projet 3 -->
+                <article class="project-card">
+                    <div class="project-image">
+                        <img src="images/cv_dada.png" alt="Portfolio interactif">
+                    </div>
+                    <div class="project-info">
+                        <span class="project-number">03</span>
+                        <div class="project-details">
+                            <h3 class="project-title">PORTFOLIO SIMPLIFIÉ</h3>
+                            <p class="project-category">UI/UX • Native HTML5, CSS3, JavaScript</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Projet 4 -->
+                <article class="project-card">
+                    <div class="project-image">
+                        <img src="images/database_app.png" alt="Plateforme Full-Stack">
+                    </div>
+                    <div class="project-info">
+                        <span class="project-number">04</span>
+                        <div class="project-details">
+                            <h3 class="project-title">GESTION D'UN SITE DE GARAGE</h3>
+                            <p class="project-category">Full-Stack • Spring Boot & Thymeleaf</p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Section Compétences & Expertise -->
+        <section class="skills-section" id="skills">
+            <div class="skills-grid-layout">
+                <div class="skills-left">
+                    <h2 class="section-title">COMPÉTENCES & EXPERTISE</h2>
+                    
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">LINUX & SYSADMIN (UBUNTU / DEBIAN)</span>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                            <div class="skill-bar-container"><div class="skill-progress" style="width: 80%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">RÉSEAUX, ROUTAGE & INFRASTRUCTURES</span>
+                                <span class="skill-percent">75%</span>
+                            </div>
+                            <div class="skill-bar-container"><div class="skill-progress" style="width: 75%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">JAVA & PYTHON (BACKEND & ALGORITHMES)</span>
+                                <span class="skill-percent">70%</span>
+                            </div>
+                            <div class="skill-bar-container"><div class="skill-progress" style="width: 70%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">JAVASCRIPT / VUE.JS / REACT</span>
+                                <span class="skill-percent">65%</span>
+                            </div>
+                            <div class="skill-bar-container"><div class="skill-progress" style="width: 65%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">BASES DE DONNÉES (SQL, MYSQL, POSTGRESQL)</span>
+                                <span class="skill-percent">75%</span>
+                            </div>
+                            <div class="skill-bar-container"><div class="skill-progress" style="width: 75%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skills-right">
+                    <div class="quote-container">
+                        <blockquote class="quote-text">
+                            " Unir la stabilité des infrastructures réseaux à la souplesse du développement d'applications pour créer des écosystèmes durables. "
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+
+                <!-- Outils & Environnement -->
+            <div class="skills-tools">
+                <h3 class="tools-title">ENVIRONNEMENT & OUTILS DE TRAVAIL</h3>
+                    <div class="tools-tags">
+                        <span class="tool-badge">VS Code</span>
+                        <span class="tool-badge">Git</span>
+                        <span class="tool-badge">Docker</span>
+                        <span class="tool-badge">VirtualBox</span>
+                        <span class="tool-badge">Postman</span>
+                        <span class="tool-badge">PhpMyAdmin</span>
+                        <span class="tool-badge">Eclipse</span>
+                    </div>
+                </div>
+
+            <div class="skills-highlights">
+                <div class="highlight-card">
+                    <h3 class="highlight-title">ARCHITECTURE RÉSEAU</h3>
+                    <p class="highlight-desc">Déploiement et sécurisation des services fondamentaux (DNS, DHCP, routage dynamique, pare-feu).</p>
+                </div>
+                <div class="highlight-card">
+                    <h3 class="highlight-title">ADMINISTRATION SYSTÈME</h3>
+                    <p class="highlight-desc">Gestion des environnements virtuels et conteneurisés, automatisation Shell/Bash et optimisation d'OS.</p>
+                </div>
+                <div class="highlight-card">
+                    <h3 class="highlight-title">INGÉNIERIE LOGICIELLE</h3>
+                    <p class="highlight-desc">Conception orientée objet, modélisation de bases de données relationnelles et API RESTful.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Expériences / Engagements -->
+        <section class="experience-section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">ENGAGEMENTS & IMMERSIONS</h2>
+                    <p class="section-subtitle">
+                        Rôles de leadership et découvertes du secteur des télécommunications et des services informatiques.
+                    </p>
+                </div>
+            </div>
+
+            <div class="experience-grid">
+                <article class="experience-card">
+                    <span class="exp-tag">ESMIA INNOVATION</span>
+                    <h3>Art Oratoire & Leadership</h3>
+                    <p>
+                        Présidence de l'Association de Vie Étudiante (AVE) : gestion d'équipe, organisation de débats d'art oratoire et promotion de l'éloquence.
+                    </p>
+                </article>
+
+                <article class="experience-card">
+                    <span class="exp-tag">ORANGE DIGITAL CENTER</span>
+                    <h3>Immersion Télécom & Innovation</h3>
+                    <p>
+                        Découverte immersive des réseaux de nouvelle génération, de la connectivité 5G et des enjeux de la transformation numérique.
+                    </p>
+                </article>
+
+                <article class="experience-card">
+                    <span class="exp-tag">GROUPE BASAN</span>
+                    <h3>Systèmes d'Information & IT</h3>
+                    <p>
+                        Analyse pratique de l'alignement entre les besoins métiers et les infrastructures d'un grand groupe d'entreprises sur le domaine de la gestion de projet.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Section Contact -->
+        <section class="contact-section" id="contact">
+            <div class="contact-card">
+                <div class="contact-cta">
+                    <h2>DISCUTONS DE VOTRE PROCHAIN PROJET</h2>
+                    <p>À la recherche d'un profil polyvalent en réseaux et développement ? Je suis joignable pour échanger sur vos opportunités.</p>
+                </div>
+
+                <div class="contact-links">
+                    <a href="mailto:rktfify@gmail.com" class="contact-item">
+                        <span>E-MAIL</span>
+                        <span>rktfify@gmail.com</span>
+                    </a>
+                    <a href="https://linkedin.com/in/fiaro-andrianina-rakotonirina-7b700739a" target="_blank" rel="noopener noreferrer" class="contact-item">
+                        <span>LINKEDIN</span>
+                        <span>Fiaro Andrianina</span>
+                    </a>
+                    <a href="https://github.com/Fiaro-Andrianina" target="_blank" rel="noopener noreferrer" class="contact-item">
+                        <span>GITHUB</span>
+                        <span>@Fiaro-Andrianina</span>
+                    </a>
+                     <a href="https://wa.me/261346862643" target="_blank" rel="noopener noreferrer" class="contact-item">
+                        <span>WHATSAPP</span>
+                        <span>+261 34 68 62 64 3</span>
+                    </a>
+                    <div class="contact-item">
+                        <span>LOCALISATION</span>
+                        <span>Antananarivo, Madagascar</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Fiaro Andrianina Rakotonirina. Tous droits réservés.</p>
+    </footer>
+
+    <!-- Script JavaScript principal -->
+    <script src="js/main.js"></script>
+</body>
+</html>
