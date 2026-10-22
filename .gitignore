@@ -1,0 +1,19 @@
+# Système
+.DS_Store
+Thumbs.db
+
+# Éditeurs
+.vscode/
+.idea/
+*.swp
+
+# Dépendances (aucune actuellement, mais par précaution)
+node_modules/
+
+# Système de build / compression d'images (sans suivi)
+dist/
+.cache/
+
+# Fichiers d'environnement
+.env
+.env.*

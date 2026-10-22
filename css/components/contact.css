@@ -1,17 +1,17 @@
 /* ==========================================================================
-   SECTION CONTACT & FOOTER (STYLE MODERN / FRAMER)
+   SECTION CONTACT & FOOTER
    ========================================================================== */
 .contact-section {
   max-width: var(--max-width);
-  margin: var(--section-margin);
+  margin: 0 auto 40px;
   padding: 0 20px;
 }
 
-/* --- Carte Sombre de Contact --- */
+/* --- Carte sombre de contact --- */
 .contact-card {
-  background-color: #000000;
-  color: #FFFFFF;
-  border-radius: 28px;
+  background-color: var(--color-dark);
+  color: var(--color-dark-text);
+  border-radius: var(--radius-lg);
   padding: 60px 40px;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -27,13 +27,33 @@
 }
 
 .contact-cta p {
-  color: #AAAAAA;
+  color: var(--color-dark-muted);
   font-size: 0.95rem;
-  margin-bottom: 30px;
   line-height: 1.6;
+  margin-bottom: 28px;
 }
 
-/* --- Liens & Coordonnées --- */
+/* --- Lien vers le formulaire de contact --- */
+.contact-form-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border: 1px solid var(--color-dark-3);
+  border-radius: var(--radius-pill);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-dark-text);
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.contact-form-link:hover {
+  background-color: var(--color-dark-text);
+  border-color: var(--color-dark-text);
+  color: var(--color-dark);
+}
+
+/* --- Liens & coordonnées --- */
 .contact-links {
   display: flex;
   flex-direction: column;
@@ -45,29 +65,36 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #262626;
+  gap: 20px;
+  border-bottom: 1px solid var(--color-dark-2);
   padding-bottom: 14px;
   font-size: 0.95rem;
   transition: border-color var(--transition-fast);
 }
 
 .contact-item span:first-child {
-  color: #888888;
+  color: var(--color-dark-label);
   font-size: 0.88rem;
 }
 
 .contact-item span:last-child {
-  color: #FFFFFF;
+  color: var(--color-dark-text);
   font-weight: 500;
+  text-align: right;
   transition: transform var(--transition-fast);
 }
 
 a.contact-item:hover {
-  border-color: #555555;
+  border-color: var(--color-dark-3);
 }
 
 a.contact-item:hover span:last-child {
   transform: translateX(4px);
+}
+
+/* Focus visible lisible sur fond noir */
+.contact-card :focus-visible {
+  outline-color: var(--color-dark-text);
 }
 
 /* --- Footer --- */
@@ -91,8 +118,20 @@ footer {
   .contact-cta h2 {
     font-size: 1.8rem;
   }
+}
 
-  .contact-cta p {
-    margin-bottom: 24px;
+@media (max-width: 480px) {
+  .contact-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .contact-item span:last-child {
+    text-align: left;
+  }
+
+  a.contact-item:hover span:last-child {
+    transform: none;
   }
 }

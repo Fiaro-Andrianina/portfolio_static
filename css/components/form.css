@@ -1,0 +1,352 @@
+/* ==========================================================================
+   PAGE DE CONTACT — FORMULAIRE
+   ========================================================================== */
+.contact-page-section {
+  max-width: var(--max-width);
+  margin: 40px auto 100px;
+  padding: 0 20px;
+}
+
+.contact-page-header {
+  margin-bottom: 48px;
+  max-width: 60ch;
+}
+
+.contact-page-header p {
+  color: var(--color-muted);
+  font-size: 1rem;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* --- Colonne formulaire --- */
+.form-card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: var(--shadow-card);
+}
+
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--color-ink);
+  text-transform: uppercase;
+}
+
+.form-label .form-required {
+  color: var(--color-green);
+  margin-left: 2px;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 13px 16px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+  appearance: none;
+}
+
+.form-select {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5l5-5' fill='none' stroke='%23666666' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 12px;
+  padding-right: 44px;
+  cursor: pointer;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 160px;
+  line-height: 1.6;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: #9A9A9A;
+}
+
+.form-input:hover,
+.form-select:hover,
+.form-textarea:hover {
+  border-color: #C9C9C9;
+}
+
+.form-input:focus-visible,
+.form-select:focus-visible,
+.form-textarea:focus-visible {
+  background-color: var(--color-card);
+}
+
+.form-input[aria-invalid="true"],
+.form-textarea[aria-invalid="true"],
+.form-select[aria-invalid="true"] {
+  border-color: #DC2626;
+}
+
+.form-hint {
+  font-size: 0.78rem;
+  color: var(--color-muted);
+}
+
+/* --- Erreur de champ --- */
+.form-error {
+  display: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #DC2626;
+}
+
+.form-error.is-visible {
+  display: block;
+}
+
+/* --- Case à cocher (consentement) --- */
+.form-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.form-check-input {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--color-ink);
+  cursor: pointer;
+}
+
+.form-check-label {
+  font-size: 0.85rem;
+  color: var(--color-body);
+  line-height: 1.5;
+}
+
+.form-check-label a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* --- Piège à robots : invisible pour les humains, visible pour les robots --- */
+.form-honeypot {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- Captcha hCaptcha ---
+   Le widget est tiers : on ne fait que l'espacer et l'aligner avec la grille. */
+.form-captcha {
+  margin-top: 4px;
+}
+
+/* hCaptcha injecte un iframe : sans cela il déborde du formulaire sur mobile */
+.form-captcha .h-captcha,
+.form-captcha .h-captcha iframe {
+  max-width: 100%;
+}
+
+/* --- Bouton d'envoi --- */
+.form-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 15px 28px;
+  background-color: var(--color-dark);
+  color: var(--color-dark-text);
+  border-radius: var(--radius-pill);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  box-shadow: var(--shadow-hero-btn);
+}
+
+.form-submit:hover:not(:disabled) {
+  background-color: #222222;
+  transform: translateY(-2px);
+}
+
+.form-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.form-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  display: none;
+  animation: form-spin 0.7s linear infinite;
+}
+
+.form-submit.is-loading .form-spinner {
+  display: block;
+}
+
+@keyframes form-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- Message de retour --- */
+.form-status {
+  display: none;
+  gap: 12px;
+  padding: 16px 18px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.form-status.is-visible {
+  display: flex;
+}
+
+.form-status-success {
+  background-color: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  color: #065F46;
+}
+
+.form-status-error {
+  background-color: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: #991B1B;
+}
+
+.form-status-icon {
+  flex-shrink: 0;
+  font-weight: 700;
+}
+
+/* --- Colonne coordonnées --- */
+.contact-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: sticky;
+  top: calc(var(--navbar-height) + 24px);
+}
+
+.aside-card {
+  background-color: var(--color-dark);
+  color: var(--color-dark-text);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+}
+
+.aside-card h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.aside-card > p {
+  color: var(--color-dark-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.aside-card .contact-item {
+  font-size: 0.9rem;
+  gap: 16px;
+}
+
+.aside-card .contact-item span:last-child {
+  font-size: 0.88rem;
+  word-break: break-word;
+}
+
+.aside-card :focus-visible {
+  outline-color: var(--color-dark-text);
+}
+
+/* --- Encart alternative --- */
+.aside-fallback {
+  padding: 24px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  font-size: 0.88rem;
+  color: var(--color-body);
+  line-height: 1.6;
+}
+
+.aside-fallback strong {
+  color: var(--color-text);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 900px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .contact-aside {
+    position: static;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-page-section {
+    margin-top: 20px;
+    margin-bottom: 60px;
+  }
+
+  .form-card {
+    padding: 26px 20px;
+  }
+
+  .aside-card {
+    padding: 26px 20px;
+  }
+}

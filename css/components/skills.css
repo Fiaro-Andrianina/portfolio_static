@@ -2,9 +2,9 @@
    SECTION COMPÉTENCES & EXPERTISE
    ========================================================================== */
 .skills-section {
-  max-width: 1200px;
-  margin: 100px auto;
-  padding: 0 24px;
+  max-width: var(--max-width);
+  margin: 0 auto 100px;
+  padding: 0 20px;
 }
 
 .skills-grid-layout {
@@ -17,83 +17,62 @@
 .skills-left {
   display: flex;
   flex-direction: column;
-  gap: 48px; /* Augmenté pour séparer nettement les barres du texte du bas */
+  gap: 48px;
 }
 
 /* --- Liste des compétences --- */
 .skills-list {
   display: flex;
   flex-direction: column;
-  gap: 32px; /* Augmenté : plus d'espace vertical entre chaque barre */
+  gap: 32px;
 }
 
 .skill-item {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Plus d'espace entre le titre/pourcentage et la barre */
+  gap: 10px;
 }
 
 .skill-info {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
+  gap: 20px;
 }
 
 .skill-name {
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.05em;
-  color: #111111;
+  color: var(--color-ink);
   text-transform: uppercase;
 }
 
 .skill-percent {
+  flex-shrink: 0;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #666666;
-  margin-left: 20px; /* Espace de sécurité si le titre est long */
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
 }
 
 /* --- Barres de progression fines --- */
 .skill-bar-container {
   width: 100%;
   height: 6px;
-  background-color: #e5e5e5;
-  border-radius: 100px;
+  background-color: var(--color-border);
+  border-radius: var(--radius-pill);
   overflow: hidden;
 }
 
 .skill-progress {
   height: 100%;
-  background-color: #111111;
-  border-radius: 100px;
+  background-color: var(--color-ink);
+  border-radius: var(--radius-pill);
   transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* --- Bloc des autres compétences textuelles (sous les barres) --- */
-.skills-extra {
-  display: flex;
-  flex-direction: column;
-  gap: 28px; /* Aère chaque sous-bloc (Architecture, Admin Sys, etc.) */
-  margin-top: 16px;
-}
-
-.skill-extra-item h4 {
-  font-size: 0.95rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 6px; /* Décolle le titre de sa description */
-  color: #111111;
-}
-
-.skill-extra-item p {
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: #555555;
-  margin: 0;
-}
-
-/* --- Bloc Citation (Colonne Droite) --- */
+/* --- Bloc citation (colonne droite) --- */
 .skills-right {
   height: 100%;
   display: flex;
@@ -101,7 +80,7 @@
 }
 
 .quote-container {
-  border-left: 2px solid #111111;
+  border-left: 2px solid var(--color-ink);
   padding-left: 32px;
   margin-top: 20px;
 }
@@ -114,15 +93,92 @@
   font-style: italic;
 }
 
-@media (max-width: 480px) {
-  .skills-section {
-    margin: 50px auto;
-    padding: 0 16px;
-  }
+/* --- Outils & environnement --- */
+.skills-tools {
+  margin-top: 40px;
+  margin-bottom: 50px;
+  padding-top: 30px;
+  border-top: 1px solid var(--color-border);
+}
 
+.tools-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.tools-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tool-badge {
+  background-color: var(--color-chip);
+  border: 1px solid var(--color-chip-border);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #333333;
+}
+
+/* --- Cartes d'expertise --- */
+.skills-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.highlight-card {
+  padding: 24px;
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.highlight-card:hover {
+  border-color: rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+}
+
+.highlight-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--color-text);
+}
+
+.highlight-desc {
+  line-height: 1.6;
+  color: var(--color-body);
+  margin: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 900px) {
   .skills-grid-layout {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+
+  .skills-highlights {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-section {
+    margin-bottom: 60px;
   }
 
   .skills-list {
@@ -134,6 +190,10 @@
     font-size: 0.78rem;
   }
 
+  .skill-info {
+    gap: 12px;
+  }
+
   .quote-container {
     padding-left: 16px;
     border-left-width: 2px;
@@ -142,87 +202,4 @@
   .quote-text {
     font-size: 1.05rem;
   }
-}
-/* Section Outils & Environnement */
-.skills-tools {
-  margin-top: 40px;
-  padding-top: 30px;
-  border-top: 1px solid #e5e5e5;
-}
-
-.tools-title {
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  margin-bottom: 16px;
-  text-transform: uppercase;
-  color: #111111;
-}
-
-.tools-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.tool-badge {
-  background-color: #f1f3f5;
-  border: 1px solid #e9ecef;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #333333;
-}
-/* ==========================================
-   ESPACEMENT SECTION OUTILS & EXPERTISE
-   ========================================== */
-
-/* Englobe le titre "ENVIRONNEMENT & OUTILS DE TRAVAIL" et la liste de badges */
-.skills-tools {
-  margin-top: 40px;
-  margin-bottom: 50px; /* Aère l'espace sous les badges */
-  padding-top: 30px;
-  border-top: 1px solid #e5e5e5;
-}
-
-/* Espacement entre les badges d'outils */
-.tools-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 16px;
-}
-
-/* Style de chaque badge d'outil */
-.tool-badge {
-  background-color: #f1f3f5;
-  border: 1px solid #e9ecef;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #333333;
-}
-
-/* Conteneur des cartes d'expertise (ARCHITECTURE RÉSEAU, etc.) */
-.skills-highlights {
-  display: flex;
-  flex-direction: column;
-  gap: 32px; /* Espacement net entre chaque bloc d'expertise */
-  margin-top: 20px;
-}
-
-/* Espacement interne sous chaque titre d'expertise */
-.highlight-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 8px; /* Sépare le titre de la description */
-}
-
-/* Aération du texte explicatif */
-.highlight-desc {
-  line-height: 1.6;
-  color: #555555;
-  margin: 0;
 }

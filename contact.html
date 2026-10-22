@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact — Fiaro Andrianina, Ingénieur Réseau &amp; Développeur Full-Stack</title>
+    <meta name="description" content="Contactez Fiaro Andrianina, ingénieur réseau et développeur full-stack à Antananarivo (Madagascar) : formulaire de contact, e-mail, WhatsApp, LinkedIn et GitHub.">
+    <link rel="canonical" href="https://fiaro-andrianina.vercel.app/contact.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:site_name" content="Fiaro Andrianina">
+    <meta property="og:title" content="Contact — Fiaro Andrianina">
+    <meta property="og:description" content="Formulaire de contact, e-mail, WhatsApp, LinkedIn et GitHub. Ingénieur réseau &amp; développeur full-stack à Antananarivo.">
+    <meta property="og:url" content="https://fiaro-andrianina.vercel.app/contact.html">
+    <meta property="og:image" content="https://fiaro-andrianina.vercel.app/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Portrait de Fiaro Andrianina, ingénieur réseau et développeur full-stack">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contact — Fiaro Andrianina">
+    <meta name="twitter:description" content="Formulaire de contact, e-mail, WhatsApp, LinkedIn et GitHub.">
+    <meta name="twitter:image" content="https://fiaro-andrianina.vercel.app/images/og-image.jpg">
+
+    <meta name="theme-color" content="#F7F7F7">
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+    <!-- Polices Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap">
+
+    <!-- Fichier CSS principal -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body id="top">
+
+    <a href="#main" class="skip-link">Aller au contenu principal</a>
+
+    <!-- Navigation supérieure -->
+    <header class="navbar">
+        <a href="index.html" class="nav-brand">FIARO ANDRIANINA</a>
+
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Ouvrir le menu de navigation">
+            <span class="nav-toggle-bar" aria-hidden="true"></span>
+            <span class="nav-toggle-bar" aria-hidden="true"></span>
+        </button>
+
+        <div class="nav-menu" id="nav-menu">
+            <nav class="nav-links" aria-label="Navigation principale">
+                <a href="index.html#about">À propos</a>
+                <a href="index.html#projects">Projets</a>
+                <a href="index.html#skills">Compétences</a>
+                <a href="index.html#experiences">Expériences</a>
+                <a href="contact.html" aria-current="page">Contact</a>
+            </nav>
+            <a href="contact.html#formulaire" class="nav-cta">Me contacter &rarr;</a>
+        </div>
+    </header>
+
+    <main id="main">
+
+        <section class="contact-page-section" aria-labelledby="contact-page-title">
+            <div class="contact-page-header">
+                <h1 class="section-title" id="contact-page-title">Parlons de votre projet</h1>
+                <p>
+                    Une question, une mission, une idée à chiffrer ? Décrivez votre besoin ci-dessous,
+                    je réponds généralement sous 48&nbsp;heures.
+                </p>
+            </div>
+
+            <div class="contact-layout">
+                <!-- Formulaire -->
+                <div class="form-card" id="formulaire">
+                    <form class="form-grid" id="contact-form" novalidate>
+                        <div class="form-row">
+                            <label class="form-label" for="field-name">Nom complet <span class="form-required" aria-hidden="true">*</span></label>
+                            <input class="form-input" type="text" id="field-name" name="name"
+                                   autocomplete="name" required maxlength="100"
+                                   placeholder="Jean Rakoto" aria-describedby="error-name">
+                            <p class="form-error" id="error-name" role="alert"></p>
+                        </div>
+
+                        <div class="form-row">
+                            <label class="form-label" for="field-email">Adresse e-mail <span class="form-required" aria-hidden="true">*</span></label>
+                            <input class="form-input" type="email" id="field-email" name="email"
+                                   autocomplete="email" required maxlength="150"
+                                   placeholder="jean.rakoto@entreprise.mg" aria-describedby="error-email">
+                            <p class="form-error" id="error-email" role="alert"></p>
+                        </div>
+
+                        <div class="form-row">
+                            <label class="form-label" for="field-subject">Objet</label>
+                            <select class="form-select" id="field-subject" name="subject">
+                                <option value="Opportunité d'emploi / stage">Opportunité d'emploi ou de stage</option>
+                                <option value="Mission de développement web">Mission de développement web</option>
+                                <option value="Infrastructure &amp; administration réseau">Infrastructure &amp; administration réseau</option>
+                                <option value="Conseil / audit">Conseil ou audit</option>
+                                <option value="Autre demande">Autre demande</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <label class="form-label" for="field-message">Message <span class="form-required" aria-hidden="true">*</span></label>
+                            <textarea class="form-textarea" id="field-message" name="message"
+                                      required minlength="20" maxlength="3000"
+                                      placeholder="Décrivez votre besoin, les technologies concernées et les délais souhaités…"
+                                      aria-describedby="hint-message error-message"></textarea>
+                            <p class="form-hint" id="hint-message">20 caractères minimum, 3000 maximum.</p>
+                            <p class="form-error" id="error-message" role="alert"></p>
+                        </div>
+
+                        <!-- Piège à robots : masqué visuellement, jamais rempli par un humain -->
+                        <div class="form-honeypot" aria-hidden="true">
+                            <label for="field-website">Ne remplissez pas ce champ</label>
+                            <input type="text" id="field-website" name="website" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <div>
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" id="field-consent" name="consent" required>
+                                <span class="form-check-label">
+                                    J'accepte que ces informations soient utilisées pour me recontacter au sujet de cette demande.
+                                </span>
+                            </label>
+                            <p class="form-error" id="error-consent" role="alert"></p>
+                        </div>
+
+                        <div class="form-status form-status-success" id="form-status" role="status" aria-live="polite">
+                            <span class="form-status-icon" aria-hidden="true">&check;</span>
+                            <span id="form-status-text"></span>
+                        </div>
+
+                        <!-- Captcha hCaptcha : charge via web3forms.com/client/script.js.
+                             Tant que hCaptcha n'est pas activé dans le tableau de bord
+                             Web3Forms, ce widget est purement informatif. -->
+                        <div class="form-captcha">
+                            <div class="h-captcha" data-captcha="true" data-theme="light" data-lang="fr"></div>
+                            <p class="form-error" id="error-captcha" role="alert"></p>
+                        </div>
+
+                        <button class="form-submit" type="submit" id="form-submit">
+                            <span class="form-spinner" aria-hidden="true"></span>
+                            <span id="form-submit-label">Envoyer le message</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Coordonnées -->
+                <aside class="contact-aside" aria-label="Autres moyens de contact">
+                    <div class="aside-card">
+                        <h2>Coordonnées directes</h2>
+                        <p>Vous préférez un échange immédiat ? Voici mes contacts directs.</p>
+
+                        <div class="contact-links">
+                            <a href="mailto:rktfify@gmail.com" class="contact-item">
+                                <span>E-mail</span>
+                                <span>rktfify@gmail.com</span>
+                            </a>
+                            <a href="https://wa.me/261346862643" target="_blank" rel="noopener noreferrer" class="contact-item">
+                                <span>WhatsApp</span>
+                                <span>+261 34 68 62 643</span>
+                            </a>
+                            <a href="tel:+261346862643" class="contact-item">
+                                <span>Téléphone</span>
+                                <span>+261 34 68 62 643</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/fiaro-andrianina-rakotonirina" target="_blank" rel="noopener noreferrer" class="contact-item">
+                                <span>LinkedIn</span>
+                                <span>Profil</span>
+                            </a>
+                            <a href="https://github.com/Fiaro-Andrianina" target="_blank" rel="noopener noreferrer" class="contact-item">
+                                <span>GitHub</span>
+                                <span>@Fiaro-Andrianina</span>
+                            </a>
+                            <div class="contact-item">
+                                <span>Localisation</span>
+                                <span>Antananarivo, Madagascar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="aside-fallback">
+                        <strong>Le formulaire ne fonctionne pas ?</strong>
+                        Écrivez directement à
+                        <a href="mailto:rktfify@gmail.com">rktfify@gmail.com</a> ou passez par WhatsApp.
+                        Les deux canaux arrivent sur la même adresse.
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="year">2026</span> Fiaro Andrianina Rakotonirina. Tous droits réservés.</p>
+    </footer>
+
+    <script src="js/main.js" defer></script>
+    <script src="js/contact.js" defer></script>
+    <script src="https://web3forms.com/client/script.js" async defer></script>
+</body>
+</html>

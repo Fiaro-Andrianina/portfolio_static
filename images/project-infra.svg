@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1366 768" width="1366" height="768" role="img" aria-label="Placeholder — Schéma d'infrastructure réseau">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#E5E5E5" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F7F7F7"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1366" height="768" fill="url(#fade)"/>
+  <rect width="1366" height="768" fill="url(#grid)"/>
+
+  <g stroke="#111111" stroke-width="1.5" fill="none" opacity="0.55">
+    <rect x="563" y="300" width="240" height="150" rx="10"/>
+    <path d="M613 300v-40h140v40"/>
+    <circle cx="683" cy="375" r="14"/>
+    <path d="M683 375l38 55"/>
+    <path d="M683 375l-38 55"/>
+    <path d="M560 375h-70M560 420h-70M806 375h70M806 420h70"/>
+    <circle cx="470" cy="375" r="9"/>
+    <circle cx="470" cy="420" r="9"/>
+    <circle cx="896" cy="375" r="9"/>
+    <circle cx="896" cy="420" r="9"/>
+  </g>
+
+  <text x="683" y="540" text-anchor="middle" font-family="'Plus Jakarta Sans',system-ui,sans-serif" font-size="21" font-weight="700" letter-spacing="4" fill="#111111">INFRASTRUCTURE INFRA</text>
+  <text x="683" y="572" text-anchor="middle" font-family="'Plus Jakarta Sans',system-ui,sans-serif" font-size="15" fill="#666666">Capture à venir</text>
+</svg>

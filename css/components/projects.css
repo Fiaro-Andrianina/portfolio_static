@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SECTION PROJETS (STYLE MODERN / FRAMER)
+   SECTION PROJETS
    ========================================================================== */
 .projects-section {
   display: flex;
@@ -12,7 +12,9 @@
   gap: 24px;
 }
 
-/* --- Carte Projet --- */
+/* --- Carte projet ---
+   Le transform est piloté par la variable --tilt (gérée en JS). Sans
+   survol de la souris, la carte reste à plat. */
 .project-card {
   background-color: var(--color-card);
   border: 1px solid var(--color-border);
@@ -21,11 +23,12 @@
   display: flex;
   flex-direction: column;
   box-shadow: var(--shadow-card);
-  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transform: var(--tilt, none);
+  transition: transform 0.4s var(--ease-out-expo), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.project-card:hover {
-  transform: translateY(-4px);
+.project-card:hover,
+.project-card:focus-visible {
   border-color: rgba(0, 0, 0, 0.2);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
 }
@@ -35,7 +38,7 @@
   height: 220px;
   border-radius: 12px;
   overflow: hidden;
-  background-color: #EFEFEF;
+  background-color: var(--color-subtle);
 }
 
 .project-image img {
@@ -45,12 +48,30 @@
   transition: transform var(--transition-smooth);
 }
 
-.project-card:hover .project-image img {
+.project-card:hover .project-image img,
+.project-card:focus-visible .project-image img {
   transform: scale(1.03);
 }
 
 .project-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
   padding: 16px 8px 4px;
+}
+
+.project-number {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+  padding-top: 2px;
+}
+
+.project-details {
+  min-width: 0;
 }
 
 .project-title {
@@ -66,11 +87,19 @@
   color: var(--color-muted);
 }
 
-/* Link Voir Tout sur GitHub */
+.project-desc {
+  font-size: 0.88rem;
+  color: var(--color-body);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+/* --- Lien « Voir tout sur GitHub » --- */
 .view-all-link {
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--color-text);
+  white-space: nowrap;
   transition: opacity var(--transition-fast);
 }
 
@@ -89,5 +118,25 @@
 
   .project-image {
     height: 200px;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .projects-grid {
+    gap: 16px;
+  }
+
+  .project-image {
+    height: 170px;
+  }
+
+  .project-info {
+    gap: 12px;
+    padding: 14px 4px 4px;
   }
 }

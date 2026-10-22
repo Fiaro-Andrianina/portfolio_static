@@ -1,0 +1,95 @@
+/* ==========================================================================
+   SECTION "À PROPOS"
+   ========================================================================== */
+.about-section {
+  max-width: var(--max-width);
+  margin: 80px auto;
+  padding: 0 20px;
+}
+
+.about-card {
+  padding: 40px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.about-title {
+  margin: 0;
+}
+
+.about-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #333333;
+  margin: 0;
+}
+
+/* Le bouton n'existe qu'en affichage réduit (voir media query) */
+.about-toggle-btn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    margin: 48px auto;
+  }
+
+  .about-card {
+    grid-template-columns: 1fr;
+    padding: 28px 24px;
+    gap: 16px;
+  }
+
+  .about-text-wrapper {
+    position: relative;
+    max-height: 108px;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  /* Dégradé de fin de texte qui disparaît une fois le texte déployé */
+  .about-text-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    background: linear-gradient(to bottom, rgba(248, 249, 250, 0), var(--color-surface));
+    transition: opacity 0.3s ease;
+  }
+
+  .about-text-wrapper.expanded {
+    max-height: 600px;
+  }
+
+  .about-text-wrapper.expanded::after {
+    opacity: 0;
+  }
+
+  .about-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    gap: 6px;
+    margin-top: 14px;
+    color: var(--color-text);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 8px 0;
+    cursor: pointer;
+  }
+
+  .about-toggle-icon {
+    transition: transform 0.3s ease;
+  }
+
+  .about-toggle-btn[aria-expanded="true"] .about-toggle-icon {
+    transform: rotate(180deg);
+  }
+}

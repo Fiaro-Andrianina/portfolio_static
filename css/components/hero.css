@@ -1,8 +1,8 @@
 /* ==========================================================================
-   HERO SECTION (EFFET PORTRAIT GÉANT SANS CADRE)
+   HERO (EFFET PORTRAIT GÉANT SANS CADRE)
    ========================================================================== */
 .hero-framer {
-  max-width: 1280px;
+  max-width: var(--max-width-hero);
   margin: 20px auto 80px;
   padding: 0 24px;
   position: relative;
@@ -16,35 +16,31 @@
   min-height: 580px;
 }
 
-/* --- Portrait Central Géant Flottant --- */
+/* --- Portrait central flottant --- */
 .hero-image-wrapper {
   position: absolute;
   left: 50%;
-  bottom: -60px; /* On décale légèrement plus vers le bas pour donner de l'espace en haut */
+  bottom: -60px;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 420px; /* On augmente la largeur maximale pour qu'elle soit plus imposante */
+  max-width: 420px;
   z-index: 1;
   pointer-events: none;
-
-  /* Effet de fondu progressif vers le bas */
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 98%);
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 98%);
 }
 
+/* Le fondu est appliqué sur l'image : un seul masque, pas de double dégradé */
 .hero-portrait {
   width: 100%;
   height: auto;
   display: block;
   object-fit: contain;
   mix-blend-mode: multiply; /* Rend le blanc de l'image transparent */
-  
-  /* Masque pour adoucir et fondre tous les bords */
-  mask-image: radial-gradient(circle, black 65%, transparent 95%);
-  -webkit-mask-image: radial-gradient(circle, black 65%, transparent 95%);
+
+  mask-image: linear-gradient(to bottom, #000 65%, transparent 98%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 65%, transparent 98%);
 }
 
-/* --- Colonne Gauche --- */
+/* --- Colonne gauche --- */
 .hero-left {
   z-index: 2;
   max-width: 380px;
@@ -61,13 +57,14 @@
 .status-dot {
   width: 8px;
   height: 8px;
-  background-color: #22c55e;
+  background-color: var(--color-green);
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
-.status-text {
+.status-label {
   font-size: 0.85rem;
-  color: #666666;
+  color: var(--color-muted);
   font-weight: 500;
 }
 
@@ -76,10 +73,10 @@
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.03em;
-  color: #111111;
+  color: var(--color-ink);
 }
 
-/* --- Colonne Droite --- */
+/* --- Colonne droite --- */
 .hero-right {
   z-index: 2;
   max-width: 320px;
@@ -92,22 +89,28 @@
 
 .hero-description {
   font-size: 0.92rem;
-  color: #555555;
+  color: var(--color-body);
   margin-bottom: 24px;
   line-height: 1.65;
 }
 
+.hero-cta-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 .hero-btn {
   display: inline-block;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: var(--color-dark);
+  color: var(--color-dark-text);
   padding: 14px 32px;
-  border-radius: 100px;
+  border-radius: var(--radius-pill);
   font-size: 0.88rem;
   font-weight: 600;
   text-decoration: none;
   transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-hero-btn);
 }
 
 .hero-btn:hover {
@@ -116,42 +119,57 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
 }
 
+.hero-btn-secondary {
+  display: inline-block;
+  padding: 12px 20px;
+  border: 1px solid var(--color-ink);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--color-ink);
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.hero-btn-secondary:hover {
+  background-color: var(--color-ink);
+  color: var(--color-dark-text);
+}
+
 /* ==========================================================================
    RESPONSIVE (MOBILE & TABLETTE)
    ========================================================================== */
-@media (max-width: 480px) {
-  .hero-framer {
-    margin: 10px auto 40px;
-    padding: 0 16px;
-  }
-
+@media (max-width: 900px) {
   .hero-container {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    min-height: auto;
+    grid-template-columns: 1fr;
+    justify-items: center;
     text-align: center;
+    min-height: auto;
+    gap: 8px;
   }
 
-  .hero-left, 
+  .hero-left,
   .hero-right {
     max-width: 100%;
     align-items: center;
   }
 
-  .hero-heading {
-    font-size: 1.8rem; /* Taille adaptée aux petits écrans */
-    line-height: 1.2;
-  }
-
-  /* Le portrait reprend sa place naturelle au centre */
   .hero-image-wrapper {
     position: relative;
     left: auto;
     bottom: auto;
     transform: none;
     max-width: 280px;
-    margin: 0 auto;
+    margin: 8px auto;
+    order: 2;
+  }
+
+  .hero-left { order: 1; }
+  .hero-right { order: 3; }
+
+  .hero-heading {
+    font-size: clamp(1.7rem, 6vw, 2.4rem);
+    line-height: 1.2;
   }
 
   .hero-description {
@@ -159,8 +177,23 @@
     text-align: center;
   }
 
+  .hero-cta-group {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-framer {
+    margin: 10px auto 40px;
+    padding: 0 16px;
+  }
+
+  .hero-heading {
+    font-size: 1.75rem;
+  }
+
   .hero-btn {
-    width: 100%; /* Bouton pleine largeur sur mobile */
+    width: 100%;
     text-align: center;
   }
 }

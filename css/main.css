@@ -5,7 +5,10 @@
 /* Composants */
 @import 'components/nav.css';
 @import 'components/hero.css';
+@import 'components/about.css';
+@import 'components/education.css';
 @import 'components/projects.css';
 @import 'components/skills.css';
 @import 'components/experience.css';
 @import 'components/contact.css';
+@import 'components/form.css';

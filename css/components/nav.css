@@ -1,5 +1,5 @@
 /* ==========================================================================
-   BARRE DE NAVIGATION SUPÉRIEURE (STYLE MODERN / FRAMER)
+   BARRE DE NAVIGATION SUPÉRIEURE
    ========================================================================== */
 .navbar {
   max-width: var(--max-width);
@@ -8,6 +8,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 24px;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -21,8 +22,41 @@
   font-size: 1.05rem;
   letter-spacing: -0.02em;
   color: var(--color-text);
+  white-space: nowrap;
 }
 
+/* --- Bouton burger (masqué sur desktop) --- */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  padding: 0 10px;
+  margin-right: -10px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.nav-toggle-bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-ink);
+  border-radius: 2px;
+  transition: transform var(--transition-smooth), opacity var(--transition-fast);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:first-child {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:last-child {
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+/* --- Liens --- */
 .nav-links {
   display: flex;
   gap: 32px;
@@ -40,15 +74,90 @@
   color: var(--color-text);
 }
 
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 18px;
+  border: 1px solid var(--color-ink);
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  white-space: nowrap;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.nav-cta:hover {
+  background-color: var(--color-ink);
+  color: #FFFFFF;
+}
+
 /* ==========================================================================
-   RESPONSIVE MOBILE
+   RESPONSIVE MOBILE — MENU PLEIN ÉCRAN
    ========================================================================== */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+  /* Hauteur réelle de la barre en mode réduit : 14px*2 de marge + 44px de burger */
+  :root {
+    --navbar-height: 72px;
+  }
+
   .navbar {
-    padding: 16px 20px;
+    padding: 14px 20px;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: var(--navbar-height);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 32px;
+    padding: 40px 24px;
+    background-color: var(--color-bg);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity var(--transition-smooth), transform var(--transition-smooth), visibility 0s linear 0.3s;
+  }
+
+  .nav-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition-delay: 0s;
   }
 
   .nav-links {
-    display: none; /* Masqué sur mobile pour garder le focus sur la marque et le bouton CTA */
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .nav-links a {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    padding: 10px 0;
+  }
+
+  .nav-cta {
+    justify-content: center;
+    padding: 14px 24px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 900px) and (min-height: 480px) {
+  .nav-menu {
+    overflow-y: auto;
   }
 }
