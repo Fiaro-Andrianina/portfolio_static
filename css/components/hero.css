@@ -43,7 +43,7 @@
 /* --- Colonne gauche --- */
 .hero-left {
   z-index: 2;
-  max-width: 380px;
+  max-width: 420px;
   position: relative;
 }
 
@@ -74,6 +74,15 @@
   line-height: 1.1;
   letter-spacing: -0.03em;
   color: var(--color-ink);
+}
+
+.hero-role {
+  margin-top: 14px;
+  max-width: 34ch;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.5;
 }
 
 /* --- Colonne droite --- */
@@ -114,9 +123,9 @@
 }
 
 .hero-btn:hover {
-  background-color: #222222;
+  background-color: var(--color-ink-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  box-shadow: var(--shadow-hero-btn-hover);
 }
 
 .hero-btn-secondary {
@@ -170,6 +179,11 @@
   .hero-heading {
     font-size: clamp(1.7rem, 6vw, 2.4rem);
     line-height: 1.2;
+  }
+
+  .hero-role {
+    text-align: center;
+    font-size: 0.88rem;
   }
 
   .hero-description {

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SECTION CONTACT & FOOTER
+   SECTION CONTACT
    ========================================================================== */
 .contact-section {
   max-width: var(--max-width);
@@ -97,14 +97,6 @@ a.contact-item:hover span:last-child {
   outline-color: var(--color-dark-text);
 }
 
-/* --- Footer --- */
-footer {
-  text-align: center;
-  padding: 40px 20px 20px;
-  font-size: 0.8rem;
-  color: var(--color-muted);
-}
-
 /* ==========================================================================
    RESPONSIVE (MOBILE & TABLETTE)
    ========================================================================== */
@@ -129,6 +121,10 @@ footer {
 
   .contact-item span:last-child {
     text-align: left;
+  }
+
+  .aside-card .contact-item {
+    gap: 4px;
   }
 
   a.contact-item:hover span:last-child {

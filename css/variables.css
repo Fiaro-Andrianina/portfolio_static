@@ -4,17 +4,23 @@
 :root {
   /* Palette neutre et moderne */
   --color-bg: #F7F7F7;            /* Fond principal très clair */
+  --color-bg-translucent: rgba(247, 247, 247, 0.88);
   --color-card: #FFFFFF;          /* Surfaces des cartes */
   --color-text: #0D0D0D;          /* Texte principal sombre */
   --color-ink: #111111;           /* Variante quasi noire (titres, barres) */
+  --color-ink-hover: #222222;
   --color-muted: #666666;         /* Texte secondaire */
   --color-body: #555555;          /* Texte de paragraphe */
+  --color-body-strong: #333333;
   --color-border: #E5E5E5;        /* Bordures fines */
+  --color-border-hover: #C9C9C9;
   --color-subtle: #EFEFEF;        /* Fond neutre (placeholders, vignettes) */
   --color-surface: #F8F9FA;       /* Fond légèrement grisé (carte "à propos") */
   --color-chip: #F1F3F5;          /* Fond des badges d'outils */
   --color-chip-border: #E9ECEF;
   --color-green: #22C55E;         /* Pastille de statut "disponible" */
+  --color-green-strong: #15803D;  /* Astérisque requis, contraste renforcé */
+  --color-white: #FFFFFF;
 
   /* Sections sombres (carte de contact) */
   --color-dark: #000000;
@@ -24,6 +30,16 @@
   --color-dark-muted: #AAAAAA;
   --color-dark-label: #888888;
 
+  /* États du formulaire */
+  --color-placeholder: #767676;
+  --color-danger: #B91C1C;
+  --color-danger-bg: #FEF2F2;
+  --color-danger-border: #FECACA;
+  --color-success-bg: #ECFDF5;
+  --color-success-border: #A7F3D0;
+  --color-success-text: #065F46;
+  --color-overlay: rgba(0, 0, 0, 0.2);
+
   /* Typographie épurée */
   --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
@@ -31,7 +47,7 @@
   --max-width: 1140px;
   --max-width-hero: 1280px;
   --section-margin: 0 auto 100px;
-  --navbar-height: 78px;
+  --navbar-height: 92px;
   --radius-pill: 9999px;          /* Boutons pilules */
   --radius-card: 20px;            /* Arrondi des cartes */
   --radius-lg: 28px;              /* Arrondi de la carte de contact */
@@ -40,6 +56,7 @@
   --shadow-button: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
   --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.03);
   --shadow-hero-btn: 0 4px 14px rgba(0, 0, 0, 0.12);
+  --shadow-hero-btn-hover: 0 6px 20px rgba(0, 0, 0, 0.18);
   --transition-fast: 0.2s ease;
   --transition-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);

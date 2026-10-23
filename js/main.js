@@ -16,17 +16,28 @@
 
   if (navToggle && navMenu) {
     const mobileQuery = window.matchMedia('(max-width: 900px)');
-    const desktopQuery = window.matchMedia('(min-width: 901px)');
+    const focusableSelector = 'a[href], button:not([disabled])';
+    let menuOpen = false;
 
     const setMenuState = (isOpen) => {
+      menuOpen = isOpen;
       navToggle.setAttribute('aria-expanded', String(isOpen));
       navToggle.setAttribute('aria-label', isOpen ? 'Fermer le menu de navigation' : 'Ouvrir le menu de navigation');
       navMenu.classList.toggle('is-open', isOpen);
       document.body.classList.toggle('nav-open', isOpen);
+
+      // Sur mobile, le panneau fermé ne doit pas être atteignable au clavier
+      // ni par les technologies d'assistance. Sur desktop, il reste actif.
+      navMenu.inert = mobileQuery.matches ? !isOpen : false;
+
+      if (isOpen) {
+        const firstLink = navMenu.querySelector(focusableSelector);
+        if (firstLink) requestAnimationFrame(() => firstLink.focus());
+      }
     };
 
     navToggle.addEventListener('click', () => {
-      setMenuState(navToggle.getAttribute('aria-expanded') !== 'true');
+      setMenuState(!menuOpen);
     });
 
     // Fermeture au clic sur un lien du panneau
@@ -34,21 +45,41 @@
       if (event.target.closest('a')) setMenuState(false);
     });
 
-    // Fermeture à la touche Échap
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && navToggle.getAttribute('aria-expanded') === 'true') {
+      if (!menuOpen) return;
+
+      if (event.key === 'Escape') {
         setMenuState(false);
         navToggle.focus();
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+
+      // Piège de focus : le menu, le bouton burger et leurs liens forment
+      // une boucle tant que le panneau est ouvert.
+      const focusables = [navToggle, ...navMenu.querySelectorAll(focusableSelector)]
+        .filter(element => !element.hasAttribute('disabled') && element.getClientRects().length > 0);
+
+      if (focusables.length === 0) return;
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
       }
     });
 
-    // Refermet le menu si l'on repasse en affichage large
-    desktopQuery.addEventListener('change', (event) => {
-      if (event.matches) setMenuState(false);
-    });
+    // Referme le menu si l'on repasse en affichage large
+    mobileQuery.addEventListener('change', () => setMenuState(false));
 
-    // Garantit un état cohérent au chargement (retour en arrière avec cache)
-    if (!mobileQuery.matches) setMenuState(false);
+    // État initial cohérent (y compris au retour en arrière avec cache)
+    setMenuState(false);
   }
 
   /* ==========================================================================
@@ -58,51 +89,11 @@
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
   /* ==========================================================================
-     3. BARRES DE COMPÉTENCES
-     La largeur cible vit dans l'attribut `style` du HTML (contenu de repli
-     sans JavaScript). On la mémorise puis on repart de 0.
-     ========================================================================== */
-  const skillBars = Array.from(document.querySelectorAll('.skill-progress'));
-  const skillsSection = document.querySelector('.skills-section');
-
-  if (skillsSection && skillBars.length > 0) {
-    if (!supportsObserver || prefersReducedMotion) {
-      // Sans observateur ou sans animation : on affiche directement l'état final.
-      skillBars.forEach(bar => { bar.style.transition = 'none'; });
-    } else {
-      skillBars.forEach(bar => {
-        bar.dataset.targetWidth = bar.style.width || '0%';
-        bar.style.width = '0%';
-        bar.style.transition = 'width 1.2s var(--ease-out-expo)';
-      });
-
-      const animateSkills = (entries, observer) => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-
-          requestAnimationFrame(() => {
-            skillBars.forEach((bar, index) => {
-              setTimeout(() => {
-                bar.style.width = bar.dataset.targetWidth;
-              }, index * 80);
-            });
-          });
-
-          observer.unobserve(entry.target);
-        });
-      };
-
-      const skillsObserver = new IntersectionObserver(animateSkills, { threshold: 0.15 });
-      skillsObserver.observe(skillsSection);
-    }
-  }
-
-  /* ==========================================================================
-     4. APPARITION EN CASCADE AU DÉFILEMENT
+     3. APPARITION EN CASCADE AU DÉFILEMENT
      Le reveal anime `opacity` uniquement : `transform` reste réservé au tilt
      et à l'état de survol, ce qui évite que les deux se marchent dessus.
      ========================================================================== */
-  const revealSelectors = '.project-card, .highlight-card, .experience-card, .contact-card';
+  const revealSelectors = '.project-card, .highlight-card, .experience-card, .education-card, .contact-card, .languages-card';
   const revealElements = document.querySelectorAll(revealSelectors);
 
   if (revealElements.length > 0) {
@@ -140,7 +131,7 @@
   }
 
   /* ==========================================================================
-     5. MICRO-TILT 3D SUR LES CARTES PROJETS
+     4. MICRO-TILT 3D SUR LES CARTES PROJETS
      ========================================================================== */
   const projectCards = document.querySelectorAll('.project-card');
   const finePointerQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
@@ -172,7 +163,7 @@
   finePointerQuery.addEventListener('change', initTilt);
 
   /* ==========================================================================
-     6. TOGGLE SECTION "À PROPOS" (AFFICHAGE RÉDUIT UNIQUEMENT)
+     5. TOGGLE SECTION "À PROPOS" (AFFICHAGE RÉDUIT UNIQUEMENT)
      ========================================================================== */
   const aboutWrapper = document.querySelector('.about-text-wrapper');
   const aboutToggle = document.querySelector('.about-toggle-btn');

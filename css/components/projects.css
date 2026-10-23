@@ -8,7 +8,7 @@
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 24px;
 }
 
@@ -16,6 +16,7 @@
    Le transform est piloté par la variable --tilt (gérée en JS). Sans
    survol de la souris, la carte reste à plat. */
 .project-card {
+  height: 100%;
   background-color: var(--color-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
@@ -28,17 +29,23 @@
 }
 
 .project-card:hover,
-.project-card:focus-visible {
-  border-color: rgba(0, 0, 0, 0.2);
+.project-card:focus-within {
+  border-color: var(--color-overlay);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
 }
 
 .project-image {
   width: 100%;
-  height: 220px;
+  height: 210px;
   border-radius: 12px;
   overflow: hidden;
   background-color: var(--color-subtle);
+}
+
+.project-image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .project-image img {
@@ -48,8 +55,14 @@
   transition: transform var(--transition-smooth);
 }
 
+/* Le schéma d'infrastructure est une illustration : on l'affiche en entier
+   plutôt que de rogner ses libellés dans une vignette au format différent. */
+.project-image img[src$=".svg"] {
+  object-fit: contain;
+}
+
 .project-card:hover .project-image img,
-.project-card:focus-visible .project-image img {
+.project-card:focus-within .project-image img {
   transform: scale(1.03);
 }
 
@@ -74,24 +87,73 @@
   min-width: 0;
 }
 
+.project-category {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
 .project-title {
   font-size: 1.05rem;
   font-weight: 700;
   color: var(--color-text);
   letter-spacing: -0.01em;
-  margin-bottom: 4px;
-}
-
-.project-category {
-  font-size: 0.85rem;
-  color: var(--color-muted);
+  margin: 4px 0;
 }
 
 .project-desc {
   font-size: 0.88rem;
   color: var(--color-body);
   margin-top: 8px;
-  line-height: 1.5;
+  line-height: 1.55;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+  list-style: none;
+}
+
+.project-tags li {
+  padding: 4px 9px;
+  background-color: var(--color-chip);
+  border: 1px solid var(--color-chip-border);
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--color-body-strong);
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-top: auto;
+  padding: 14px 8px 2px;
+  border-top: 1px solid var(--color-border);
+}
+
+.project-link {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity var(--transition-fast);
+}
+
+.project-link:hover {
+  opacity: 0.65;
+}
+
+.project-note {
+  font-size: 0.78rem;
+  color: var(--color-muted);
 }
 
 /* --- Lien « Voir tout sur GitHub » --- */
@@ -138,5 +200,9 @@
   .project-info {
     gap: 12px;
     padding: 14px 4px 4px;
+  }
+
+  .project-links {
+    padding: 14px 4px 2px;
   }
 }

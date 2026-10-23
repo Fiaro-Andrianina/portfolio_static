@@ -17,66 +17,53 @@
 .skills-left {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 36px;
 }
 
-/* --- Liste des compétences --- */
-.skills-list {
+.skill-groups {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 28px;
 }
 
-.skill-item {
+.skill-group {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.skill-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 20px;
-}
-
-.skill-name {
-  font-size: 0.85rem;
-  font-weight: 600;
+.skill-group-title {
+  font-size: 0.82rem;
+  font-weight: 700;
   letter-spacing: 0.05em;
   color: var(--color-ink);
   text-transform: uppercase;
 }
 
-.skill-percent {
-  flex-shrink: 0;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-muted);
-  font-variant-numeric: tabular-nums;
-}
-
-/* --- Barres de progression fines --- */
-.skill-bar-container {
-  width: 100%;
-  height: 6px;
-  background-color: var(--color-border);
-  border-radius: var(--radius-pill);
-  overflow: hidden;
-}
-
-.skill-progress {
-  height: 100%;
-  background-color: var(--color-ink);
-  border-radius: var(--radius-pill);
-  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* --- Bloc citation (colonne droite) --- */
-.skills-right {
-  height: 100%;
+.skill-tags {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+}
+
+.skill-tags li {
+  padding: 7px 13px;
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--color-body-strong);
+}
+
+/* --- Colonne droite : citation + langues --- */
+.skills-right {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  position: sticky;
+  top: calc(var(--navbar-height) + 24px);
 }
 
 .quote-container {
@@ -86,44 +73,61 @@
 }
 
 .quote-text {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 400;
   line-height: 1.6;
-  color: #333333;
+  color: var(--color-body-strong);
   font-style: italic;
 }
 
-/* --- Outils & environnement --- */
-.skills-tools {
-  margin-top: 40px;
-  margin-bottom: 50px;
-  padding-top: 30px;
-  border-top: 1px solid var(--color-border);
+.languages-card {
+  padding: 24px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
 }
 
 .tools-title {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.05em;
-  margin-bottom: 16px;
+  color: var(--color-ink);
   text-transform: uppercase;
+}
+
+.languages-card .tools-title {
+  margin-bottom: 14px;
+}
+
+.languages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+}
+
+.languages-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.88rem;
+}
+
+.languages-list li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.languages-list li span:first-child {
+  font-weight: 600;
   color: var(--color-ink);
 }
 
-.tools-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.tool-badge {
-  background-color: var(--color-chip);
-  border: 1px solid var(--color-chip-border);
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #333333;
+.languages-list li span:last-child {
+  color: var(--color-muted);
+  text-align: right;
 }
 
 /* --- Cartes d'expertise --- */
@@ -131,7 +135,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  margin-top: 20px;
+  margin-top: 48px;
 }
 
 .highlight-card {
@@ -144,7 +148,7 @@
 }
 
 .highlight-card:hover {
-  border-color: rgba(0, 0, 0, 0.2);
+  border-color: var(--color-overlay);
   transform: translateY(-3px);
 }
 
@@ -170,6 +174,10 @@
     gap: 32px;
   }
 
+  .skills-right {
+    position: static;
+  }
+
   .skills-highlights {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -181,17 +189,12 @@
     margin-bottom: 60px;
   }
 
-  .skills-list {
-    gap: 20px;
+  .skill-groups {
+    gap: 22px;
   }
 
-  .skill-name,
-  .skill-percent {
-    font-size: 0.78rem;
-  }
-
-  .skill-info {
-    gap: 12px;
+  .skill-tags li {
+    font-size: 0.8rem;
   }
 
   .quote-container {

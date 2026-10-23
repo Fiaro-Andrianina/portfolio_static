@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Contact — Fiaro Andrianina, Ingénieur Réseau &amp; Développeur Full-Stack</title>
-    <meta name="description" content="Contactez Fiaro Andrianina, ingénieur réseau et développeur full-stack à Antananarivo (Madagascar) : formulaire de contact, e-mail, WhatsApp, LinkedIn et GitHub.">
+    <title>Contact — Fiaro Andrianina | Stage, projet ou collaboration</title>
+    <meta name="description" content="Contactez Fiaro Andrianina, étudiant en L3 Systèmes &amp; Réseaux à Antananarivo : formulaire, e-mail, WhatsApp, LinkedIn et GitHub. Disponible pour un stage de 6 mois dès décembre 2026.">
+    <meta name="author" content="Fiaro Andrianina Rakotonirina">
     <link rel="canonical" href="https://fiaro-andrianina.vercel.app/contact.html">
     <meta name="robots" content="index, follow">
 
@@ -13,28 +14,52 @@
     <meta property="og:locale" content="fr_FR">
     <meta property="og:site_name" content="Fiaro Andrianina">
     <meta property="og:title" content="Contact — Fiaro Andrianina">
-    <meta property="og:description" content="Formulaire de contact, e-mail, WhatsApp, LinkedIn et GitHub. Ingénieur réseau &amp; développeur full-stack à Antananarivo.">
+    <meta property="og:description" content="Formulaire, e-mail, WhatsApp, LinkedIn et GitHub. Étudiant en L3 Systèmes &amp; Réseaux, disponible pour un stage de 6 mois dès décembre 2026.">
     <meta property="og:url" content="https://fiaro-andrianina.vercel.app/contact.html">
     <meta property="og:image" content="https://fiaro-andrianina.vercel.app/images/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Portrait de Fiaro Andrianina, ingénieur réseau et développeur full-stack">
+    <meta property="og:image:alt" content="Portfolio de Fiaro Andrianina, étudiant en L3 Systèmes &amp; Réseaux">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Contact — Fiaro Andrianina">
-    <meta name="twitter:description" content="Formulaire de contact, e-mail, WhatsApp, LinkedIn et GitHub.">
+    <meta name="twitter:description" content="Formulaire, e-mail, WhatsApp, LinkedIn et GitHub. Disponible pour un stage de 6 mois dès décembre 2026.">
     <meta name="twitter:image" content="https://fiaro-andrianina.vercel.app/images/og-image.jpg">
 
     <meta name="theme-color" content="#F7F7F7">
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="me" href="https://github.com/Fiaro-Andrianina">
+    <link rel="me" href="https://www.linkedin.com/in/fiaro-andrianina-rakotonirina">
 
     <!-- Polices Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://formsubmit.co">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap">
 
-    <!-- Fichier CSS principal -->
-    <link rel="stylesheet" href="css/main.css">
+    <!-- Feuilles de style -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components/nav.css">
+    <link rel="stylesheet" href="css/components/contact.css">
+    <link rel="stylesheet" href="css/components/form.css">
+    <noscript><link rel="stylesheet" href="css/no-js.css"></noscript>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "Contact — Fiaro Andrianina",
+      "url": "https://fiaro-andrianina.vercel.app/contact.html",
+      "about": {
+        "@type": "Person",
+        "name": "Fiaro Andrianina Rakotonirina",
+        "email": "mailto:rktfify@gmail.com",
+        "telephone": "+261346862643"
+      }
+    }
+    </script>
 </head>
 <body id="top">
 
@@ -42,7 +67,7 @@
 
     <!-- Navigation supérieure -->
     <header class="navbar">
-        <a href="index.html" class="nav-brand">FIARO ANDRIANINA</a>
+        <a href="index.html" class="nav-brand">Fiaro Andrianina</a>
 
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Ouvrir le menu de navigation">
             <span class="nav-toggle-bar" aria-hidden="true"></span>
@@ -67,7 +92,7 @@
             <div class="contact-page-header">
                 <h1 class="section-title" id="contact-page-title">Parlons de votre projet</h1>
                 <p>
-                    Une question, une mission, une idée à chiffrer ? Décrivez votre besoin ci-dessous,
+                    Vous cherchez un stagiaire en systèmes, réseaux ou développement web ? Décrivez votre besoin ci-dessous,
                     je réponds généralement sous 48&nbsp;heures.
                 </p>
             </div>
@@ -75,7 +100,18 @@
             <div class="contact-layout">
                 <!-- Formulaire -->
                 <div class="form-card" id="formulaire">
-                    <form class="form-grid" id="contact-form" novalidate>
+                    <form class="form-grid"
+                          id="contact-form"
+                          action="https://formsubmit.co/rktfify@gmail.com"
+                          method="POST"
+                          accept-charset="UTF-8">
+
+                        <!-- Configuration FormSubmit -->
+                        <input type="hidden" name="_subject" value="Nouveau message depuis le portfolio">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_next" value="https://fiaro-andrianina.vercel.app/merci.html">
+
                         <div class="form-row">
                             <label class="form-label" for="field-name">Nom complet <span class="form-required" aria-hidden="true">*</span></label>
                             <input class="form-input" type="text" id="field-name" name="name"
@@ -95,10 +131,10 @@
                         <div class="form-row">
                             <label class="form-label" for="field-subject">Objet</label>
                             <select class="form-select" id="field-subject" name="subject">
-                                <option value="Opportunité d'emploi / stage">Opportunité d'emploi ou de stage</option>
+                                <option value="Opportunité de stage">Opportunité de stage</option>
                                 <option value="Mission de développement web">Mission de développement web</option>
-                                <option value="Infrastructure &amp; administration réseau">Infrastructure &amp; administration réseau</option>
-                                <option value="Conseil / audit">Conseil ou audit</option>
+                                <option value="Infrastructure et administration réseau">Infrastructure et administration réseau</option>
+                                <option value="Conseil ou audit">Conseil ou audit</option>
                                 <option value="Autre demande">Autre demande</option>
                             </select>
                         </div>
@@ -116,36 +152,33 @@
                         <!-- Piège à robots : masqué visuellement, jamais rempli par un humain -->
                         <div class="form-honeypot" aria-hidden="true">
                             <label for="field-website">Ne remplissez pas ce champ</label>
-                            <input type="text" id="field-website" name="website" tabindex="-1" autocomplete="off">
+                            <input type="text" id="field-website" name="_honey" tabindex="-1" autocomplete="off">
                         </div>
 
                         <div>
                             <label class="form-check">
-                                <input class="form-check-input" type="checkbox" id="field-consent" name="consent" required>
+                                <input class="form-check-input" type="checkbox" id="field-consent" name="consent" required aria-describedby="error-consent">
                                 <span class="form-check-label">
                                     J'accepte que ces informations soient utilisées pour me recontacter au sujet de cette demande.
+                                    <a href="confidentialite.html" target="_blank" rel="noopener">Politique de confidentialité</a>.
                                 </span>
                             </label>
                             <p class="form-error" id="error-consent" role="alert"></p>
                         </div>
 
-                        <div class="form-status form-status-success" id="form-status" role="status" aria-live="polite">
+                        <div class="form-status form-status-success" id="form-status" role="status" aria-live="polite" aria-atomic="true" tabindex="-1">
                             <span class="form-status-icon" aria-hidden="true">&check;</span>
                             <span id="form-status-text"></span>
-                        </div>
-
-                        <!-- Captcha hCaptcha : charge via web3forms.com/client/script.js.
-                             Tant que hCaptcha n'est pas activé dans le tableau de bord
-                             Web3Forms, ce widget est purement informatif. -->
-                        <div class="form-captcha">
-                            <div class="h-captcha" data-captcha="true" data-theme="light" data-lang="fr"></div>
-                            <p class="form-error" id="error-captcha" role="alert"></p>
                         </div>
 
                         <button class="form-submit" type="submit" id="form-submit">
                             <span class="form-spinner" aria-hidden="true"></span>
                             <span id="form-submit-label">Envoyer le message</span>
                         </button>
+
+                        <p class="form-hint">
+                            Ce formulaire est traité par FormSubmit et les données sont envoyées directement à mon adresse e-mail.
+                        </p>
                     </form>
                 </div>
 
@@ -184,6 +217,11 @@
                     </div>
 
                     <div class="aside-fallback">
+                        <strong>Disponibilité</strong>
+                        Stage de 6 mois à partir du 21 décembre 2026, en systèmes, réseaux ou développement web.
+                    </div>
+
+                    <div class="aside-fallback">
                         <strong>Le formulaire ne fonctionne pas ?</strong>
                         Écrivez directement à
                         <a href="mailto:rktfify@gmail.com">rktfify@gmail.com</a> ou passez par WhatsApp.
@@ -196,10 +234,15 @@
 
     <footer>
         <p>&copy; <span id="year">2026</span> Fiaro Andrianina Rakotonirina. Tous droits réservés.</p>
+        <nav class="footer-links" aria-label="Liens de pied de page">
+            <a href="index.html">Accueil</a>
+            <a href="contact.html">Contact</a>
+            <a href="confidentialite.html">Confidentialité</a>
+            <a href="https://github.com/Fiaro-Andrianina" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </nav>
     </footer>
 
     <script src="js/main.js" defer></script>
     <script src="js/contact.js" defer></script>
-    <script src="https://web3forms.com/client/script.js" async defer></script>
 </body>
 </html>

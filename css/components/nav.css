@@ -12,7 +12,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: rgba(247, 247, 247, 0.85);
+  background-color: var(--color-bg-translucent);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -23,6 +23,13 @@
   letter-spacing: -0.02em;
   color: var(--color-text);
   white-space: nowrap;
+}
+
+/* --- Conteneur desktop : liens + CTA sur une seule ligne --- */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
 
 /* --- Bouton burger (masqué sur desktop) --- */
@@ -70,8 +77,13 @@
   transition: color var(--transition-fast);
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a[aria-current="page"] {
   color: var(--color-text);
+}
+
+.nav-links a[aria-current="page"] {
+  font-weight: 700;
 }
 
 .nav-cta {
@@ -89,7 +101,7 @@
 
 .nav-cta:hover {
   background-color: var(--color-ink);
-  color: #FFFFFF;
+  color: var(--color-white);
 }
 
 /* ==========================================================================
@@ -122,6 +134,8 @@
     justify-content: flex-start;
     gap: 32px;
     padding: 40px 24px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     background-color: var(--color-bg);
     opacity: 0;
     visibility: hidden;
@@ -153,11 +167,5 @@
     justify-content: center;
     padding: 14px 24px;
     font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 900px) and (min-height: 480px) {
-  .nav-menu {
-    overflow-y: auto;
   }
 }

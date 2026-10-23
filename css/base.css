@@ -26,6 +26,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  overflow-x: clip;
   min-height: 100vh;
 }
 
@@ -72,12 +73,12 @@ select {
 /* --- Sélection de texte --- */
 ::selection {
   background-color: var(--color-text);
-  color: #FFFFFF;
+  color: var(--color-white);
 }
 
 ::-moz-selection {
   background-color: var(--color-text);
-  color: #FFFFFF;
+  color: var(--color-white);
 }
 
 /* --- Accessibilité --- */
@@ -88,7 +89,7 @@ select {
   z-index: 200;
   padding: 12px 20px;
   background-color: var(--color-ink);
-  color: #FFFFFF;
+  color: var(--color-white);
   font-size: 0.9rem;
   font-weight: 600;
   border-radius: 0 0 8px 8px;
@@ -99,11 +100,23 @@ select {
   top: 0;
 }
 
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ==========================================================================
    APPARITION AU DÉFILEMENT
    `translate` est utilisé volontairement : c'est une propriété distincte de
-   `transform`, donc elle se compose avec le tilt des cartes au lieu de le
-   écraser. Sans JavaScript, la classe n'est jamais posée et le contenu
+   `transform`, donc elle se compose avec le tilt des cartes au lieu de
+   l'écraser. Sans JavaScript, la classe n'est jamais posée et le contenu
    reste simplement visible.
    ========================================================================== */
 .reveal {
@@ -120,7 +133,7 @@ select {
 /* ==========================================================================
    STRUCTURES & COMPOSANTS RÉUTILISABLES
    ========================================================================== */
-section {
+main > section {
   max-width: var(--max-width);
   margin: var(--section-margin);
   padding: 0 20px;
@@ -149,6 +162,40 @@ section {
 }
 
 /* ==========================================================================
+   PIED DE PAGE
+   ========================================================================== */
+footer {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 32px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 18px;
+}
+
+.footer-links a {
+  color: var(--color-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition-fast);
+}
+
+.footer-links a:hover {
+  color: var(--color-ink);
+}
+
+/* ==========================================================================
    PRÉFÉRENCE : MOUVEMENTS RÉDUITS
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
@@ -160,7 +207,9 @@ section {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
   }
 }

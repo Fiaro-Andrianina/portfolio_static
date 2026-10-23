@@ -1,34 +1,35 @@
 /* ==========================================================================
-   FORMULAIRE DE CONTACT — ENVOI VIA WEB3FORMS
+   FORMULAIRE DE CONTACT — ENVOI VIA FORMSUBMIT
    ==========================================================================
-   Web3Forms relaie le message vers rktfify@gmail.com sans backend ni code
-   serveur : la requête part directement du navigateur vers
-   https://api.web3forms.com/submit.
+   FormSubmit relaie le message vers rktfify@gmail.com sans backend ni code
+   serveur. La requête AJAX part directement du navigateur vers
+   https://formsubmit.co/ajax/rktfify@gmail.com.
 
-   La clé d'accès n'est PAS un secret : c'est un identifiant public, propre
-   au site, qui autorise l'envoi vers la seule adresse associée. Elle peut
-   donc rester dans le code côté client. En revanche ne JAMAIS y mettre un
-   mot de passe SMTP ou une clé d'API d'un autre service : ils seraient
-   lisibles par n'importe qui.
+   L'adresse e-mail présente dans l'attribut `action` n'est pas un secret :
+   elle est nécessaire au fonctionnement du formulaire. Aucun mot de passe
+   SMTP ni clé privée ne doit être stocké ici.
 
-   OBTENIR LA CLÉ : https://web3forms.com/ (entrer l'e-mail de réception).
-   Puis la coller ci-dessous.
+   Sans JavaScript, le formulaire reste fonctionnel : il est envoyé en POST
+   classique vers FormSubmit, puis redirigé vers merci.html grâce à `_next`.
    ========================================================================== */
 (function () {
   'use strict';
 
   const CONTACT_CONFIG = {
-    accessKey: 'VOTRE_CLE_WEB3FORMS', // <-- à remplacer
-    recipientEmail: 'rktfify@gmail.com',
-    minFillSeconds: 3,   // en dessous, on suppose un robot
-    cooldownSeconds: 25 // délai minimum entre deux envois depuis ce navigateur
+    minFillSeconds: 3 // en dessous, on suppose un robot
   };
-
-  const API_URL = 'https://api.web3forms.com/submit';
-  const STORAGE_KEY = 'portfolio:lastContactSubmit';
 
   const form = document.getElementById('contact-form');
   if (!form) return;
+
+  // Avec JavaScript, la validation est gérée champ par champ et les messages
+  // d'erreur restent dans la page. Sans JavaScript, les attributs HTML
+  // (`required`, `type="email"`, `minlength`) reprennent la main.
+  if (window.fetch) form.noValidate = true;
+
+  // L'endpoint AJAX est dérivé de l'action du formulaire : une seule adresse
+  // à modifier dans le HTML si le destinataire change.
+  const AJAX_URL = form.action.replace('formsubmit.co/', 'formsubmit.co/ajax/');
 
   const submitButton = document.getElementById('form-submit');
   const submitLabel = document.getElementById('form-submit-label');
@@ -39,12 +40,31 @@
   // Horodatage du chargement de la page : sert de repère au piège temporel.
   const pageLoadedAt = Date.now();
 
+  const FIELDS = [
+    {
+      id: 'field-name',
+      errorId: 'error-name',
+      validate: value => value.trim().length >= 2 || 'Indiquez votre nom (2 caractères minimum).'
+    },
+    {
+      id: 'field-email',
+      errorId: 'error-email',
+      validate: value => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim()) || 'Indiquez une adresse e-mail valide.'
+    },
+    {
+      id: 'field-message',
+      errorId: 'error-message',
+      validate: value => value.trim().length >= 20 || 'Décrivez votre besoin en 20 caractères minimum.'
+    }
+  ];
+
   /* ------------------------------------------------------------------------
      AFFICHAGE DES MESSAGES
      ------------------------------------------------------------------------ */
   function showStatus(type, message) {
     statusBox.classList.remove('form-status-success', 'form-status-error');
     statusBox.classList.add(type === 'success' ? 'form-status-success' : 'form-status-error');
+    statusBox.setAttribute('role', type === 'success' ? 'status' : 'alert');
     statusBox.querySelector('.form-status-icon').textContent = type === 'success' ? '\u2713' : '!';
     statusText.textContent = message;
     statusBox.classList.add('is-visible');
@@ -57,12 +77,6 @@
   /* ------------------------------------------------------------------------
      ERREURS DE CHAMP
      ------------------------------------------------------------------------ */
-  const FIELDS = [
-    { id: 'field-name', errorId: 'error-name', label: 'Nom complet', validate: v => v.trim().length >= 2 || 'Indiquez votre nom (2 caractères minimum).' },
-    { id: 'field-email', errorId: 'error-email', label: 'Adresse e-mail', validate: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) || 'Indiquez une adresse e-mail valide.' },
-    { id: 'field-message', errorId: 'error-message', label: 'Message', validate: v => v.trim().length >= 20 || 'Décrivez votre besoin en 20 caractères minimum.' }
-  ];
-
   function setFieldError(field, message) {
     const input = document.getElementById(field.id);
     const errorEl = document.getElementById(field.errorId);
@@ -90,93 +104,38 @@
 
     const consent = document.getElementById('field-consent');
     const consentError = document.getElementById('error-consent');
+
     if (!consent.checked) {
       consentError.textContent = 'Merci de cocher cette case pour continuer.';
       consentError.classList.add('is-visible');
+      consent.setAttribute('aria-invalid', 'true');
       isValid = false;
     } else {
       consentError.textContent = '';
       consentError.classList.remove('is-visible');
-    }
-
-    // Captcha : on n'exige le widget que s'il est réellement présent dans la page.
-    // Si hcaptcha.com est bloqué (extension, réseau, pare-feu) on préfère laisser
-    // partir le message plutôt que de perdre un vrai contact.
-    if (isCaptchaPresent() && !getCaptchaToken()) {
-      const captchaError = document.getElementById('error-captcha');
-      captchaError.textContent = 'Merci de valider le captcha pour envoyer le message.';
-      captchaError.classList.add('is-visible');
-      isValid = false;
+      consent.removeAttribute('aria-invalid');
     }
 
     return isValid;
   }
 
-  /* ------------------------------------------------------------------------
-     CAPTCHA hCAPTCHA
-     Le widget est rendu par le script de Web3Forms, qui injecte un champ
-     caché `h-captcha-response` contenant le token. Sa présence permet de
-     savoir si le captcha est réellement disponible sur cette page.
-     ------------------------------------------------------------------------ */
-  const captchaError = document.getElementById('error-captcha');
+  function clearAllErrors() {
+    FIELDS.forEach(field => setFieldError(field, null));
 
-  function getCaptchaToken() {
-    const field = form.querySelector('textarea[name="h-captcha-response"]');
-    return field ? field.value.trim() : '';
-  }
-
-  function isCaptchaPresent() {
-    return Boolean(form.querySelector('textarea[name="h-captcha-response"]'));
-  }
-
-  function clearCaptchaError() {
-    if (!captchaError) return;
-    captchaError.textContent = '';
-    captchaError.classList.remove('is-visible');
-  }
-
-  // Le token est à usage unique : sans reset, le deuxième envoi échouerait.
-  function resetCaptcha() {
-    if (!isCaptchaPresent()) return;
-
-    const widget = form.querySelector('.h-captcha');
-    const widgetId = widget && widget.dataset.widgetId;
-
-    if (window.hCaptcha && typeof window.hCaptcha.reset === 'function') {
-      window.hCaptcha.reset(widgetId || 0);
-    }
-
-    // Repli si le SDK n'est pas exposé globalement mais que le champ existe.
-    const tokenField = form.querySelector('textarea[name="h-captcha-response"]');
-    if (tokenField) tokenField.value = '';
+    const consent = document.getElementById('field-consent');
+    const consentError = document.getElementById('error-consent');
+    consentError.textContent = '';
+    consentError.classList.remove('is-visible');
+    consent.removeAttribute('aria-invalid');
   }
 
   /* ------------------------------------------------------------------------
      ANTI-SPAM CÔTÉ NAVIGATEUR
+     FormSubmit filtre déjà les robots ; ce délai minimum évite les envois
+     instantanés sans gêner une saisie humaine.
      ------------------------------------------------------------------------ */
-
-  // 1. Délai minimum depuis le chargement : un humain met plus de 3 s à lire
-  //    et remplir, un script de spam part immédiatement.
   function isTooFast() {
     return (Date.now() - pageLoadedAt) / 1000 < CONTACT_CONFIG.minFillSeconds;
-  }
-
-  // 2. Délai minimum entre deux envois depuis le même navigateur.
-  function isInCooldown() {
-    try {
-      const last = Number(window.localStorage.getItem(STORAGE_KEY) || 0);
-      return (Date.now() - last) / 1000 < CONTACT_CONFIG.cooldownSeconds;
-    } catch (error) {
-      return false; // stockage indisponible (navigation privée) : on n'y bloque pas
-    }
-  }
-
-  function rememberSubmission() {
-    try {
-      window.localStorage.setItem(STORAGE_KEY, String(Date.now()));
-    } catch (error) {
-      /* stockage indisponible : sans conséquence */
-    }
   }
 
   /* ------------------------------------------------------------------------
@@ -186,37 +145,75 @@
     submitButton.disabled = isLoading;
     submitButton.classList.toggle('is-loading', isLoading);
     submitLabel.textContent = isLoading ? 'Envoi en cours…' : 'Envoyer le message';
+    form.setAttribute('aria-busy', String(isLoading));
   }
 
   /* ------------------------------------------------------------------------
      ENVOI
      ------------------------------------------------------------------------ */
   async function sendMessage(payload) {
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(payload)
-    });
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 15000);
 
-    const data = await response.json().catch(() => ({}));
+    try {
+      const response = await fetch(AJAX_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload),
+        signal: controller.signal
+      });
 
-    if (!response.ok || data.success !== true) {
-      throw new Error(data.message || `Le service d'envoi a répondu ${response.status}.`);
+      const rawBody = await response.text();
+      let data = {};
+
+      try {
+        data = rawBody ? JSON.parse(rawBody) : {};
+      } catch (error) {
+        // Réponse HTML (page d'activation, pare-feu, etc.) : on garde un
+        // message générique plutôt que d'exposer du HTML brut à l'utilisateur.
+      }
+
+      const isSuccess = data.success === true || data.success === 'true';
+
+      if (isSuccess) return data;
+
+      const serviceMessage = typeof data.message === 'string' ? data.message : '';
+
+      if (/activat/i.test(serviceMessage) || (!serviceMessage && /activat/i.test(rawBody))) {
+        const activationError = new Error('FormSubmit doit encore être activé.');
+        activationError.code = 'ACTIVATION_REQUIRED';
+        throw activationError;
+      }
+
+      if (!response.ok) {
+        throw new Error(serviceMessage || `Le service d'envoi a répondu ${response.status}.`);
+      }
+
+      throw new Error(serviceMessage || "Le service d'envoi n'a pas confirmé la réception du message.");
+    } finally {
+      window.clearTimeout(timeoutId);
     }
-
-    return data;
   }
 
   form.addEventListener('submit', async (event) => {
+    // Navigateur sans fetch : on laisse le POST natif vers FormSubmit agir.
+    if (!window.fetch) return;
+
     event.preventDefault();
+
+    if (submitButton.disabled) return;
+
     hideStatus();
 
-    // Cas non configuré : on ne tente rien, on oriente vers l'e-mail direct.
-    if (CONTACT_CONFIG.accessKey === 'VOTRE_CLE_WEB3FORMS') {
-      showStatus('error',
-        "Formulaire non configuré : la clé Web3Forms n'a pas encore été renseignée. " +
-        "En attendant, utilisez le lien direct ci-contre ou écrivez à " +
-        CONTACT_CONFIG.recipientEmail + '.');
+    // Piège à robots : un humain ne remplit jamais ce champ. On simule un
+    // succès pour ne pas donner d'indice à un script automatisé.
+    if (honeypot && honeypot.value.trim() !== '') {
+      form.reset();
+      clearAllErrors();
+      showStatus('success', 'Message envoyé. Je vous réponds sous 48 heures en moyenne.');
       return;
     }
 
@@ -229,54 +226,51 @@
 
     if (isTooFast()) {
       showStatus('error', 'Formulaire envoyé trop rapidement. Vérifiez les champs puis réessayez.');
+      statusBox.focus();
       return;
     }
 
-    if (isInCooldown()) {
-      showStatus('error',
-        `Un message vient déjà d'être envoyé. Merci d'attendre ${CONTACT_CONFIG.cooldownSeconds} secondes avant de réessayer.`);
-      return;
-    }
-
+    const name = document.getElementById('field-name').value.trim();
     const email = document.getElementById('field-email').value.trim();
-    const subject = document.getElementById('field-subject').value;
+    const subject = document.getElementById('field-subject').value || 'Nouveau message';
+    const message = document.getElementById('field-message').value.trim();
 
-    // `botcheck` est le champ attendu par Web3Forms pour filtrer les robots :
-    // un humain le laisse vide (piège à robots), un robot le remplit.
-    // `h-captcha-response` est normalement ajouté par le script Web3Forms ;
-    // on le renvoie explicitement au cas où le script l'aurait omis.
     const payload = {
-      access_key: CONTACT_CONFIG.accessKey,
-      subject: `[Portfolio] ${subject}`,
-      name: document.getElementById('field-name').value.trim(),
+      _subject: `[Portfolio] ${subject} — ${name}`,
+      _template: 'table',
+      _captcha: 'false',
+      _replyto: email,
+      name,
       email,
-      message: document.getElementById('field-message').value.trim(),
-      replyto: email,
-      from_name: 'Formulaire portfolio',
-      botcheck: honeypot ? honeypot.value : ''
+      subject,
+      message,
+      consent: 'Oui'
     };
-
-    const captchaToken = getCaptchaToken();
-    if (captchaToken) payload['h-captcha-response'] = captchaToken;
 
     setLoading(true);
 
     try {
       await sendMessage(payload);
 
-      rememberSubmission();
       form.reset();
-      FIELDS.forEach(field => setFieldError(field, null));
-      document.getElementById('error-consent').classList.remove('is-visible');
-      clearCaptchaError();
-      resetCaptcha();
-
+      clearAllErrors();
       showStatus('success',
         'Message envoyé. Je vous réponds sous 48 heures en moyenne — pensez à vérifier vos courriers indésirables.');
+      statusBox.focus();
     } catch (error) {
-      showStatus('error',
-        error.message + " Si le problème persiste, écrivez directement à " +
-        CONTACT_CONFIG.recipientEmail + '.');
+      if (error.code === 'ACTIVATION_REQUIRED') {
+        showStatus('error',
+          "Le formulaire est en cours d'activation. En attendant, écrivez directement à rktfify@gmail.com.");
+      } else if (error.name === 'AbortError') {
+        showStatus('error',
+          "Le service d'envoi met trop de temps à répondre. Réessayez ou écrivez directement à rktfify@gmail.com.");
+      } else {
+        const reason = error.message || "L'envoi a échoué.";
+        showStatus('error',
+          reason + ' Si le problème persiste, écrivez directement à rktfify@gmail.com.');
+      }
+
+      statusBox.focus();
     } finally {
       setLoading(false);
     }
@@ -288,32 +282,23 @@
   // On efface l'erreur d'un champ dès que l'utilisateur le corrige.
   FIELDS.forEach(field => {
     const input = document.getElementById(field.id);
+
     input.addEventListener('input', () => {
       if (input.getAttribute('aria-invalid') === 'true') {
-        setFieldError(field, field.validate(input.value) === true ? null : field.validate(input.value));
+        const result = field.validate(input.value);
+        setFieldError(field, result === true ? null : result);
       }
       hideStatus();
     });
   });
 
-  // Erreur du captcha effacée dès qu'il est validé
-  form.addEventListener('input', (event) => {
-    if (event.target.name === 'h-captcha-response') clearCaptchaError();
-  });
-
   document.getElementById('field-consent').addEventListener('change', (event) => {
-    if (event.target.checked) {
-      const err = document.getElementById('error-consent');
-      err.textContent = '';
-      err.classList.remove('is-visible');
-    }
-  });
+    if (!event.target.checked) return;
 
-  /* ------------------------------------------------------------------------
-     AVERTISSEMENT EN CONSOLE SI NON CONFIGURÉ
-     ------------------------------------------------------------------------ */
-  if (CONTACT_CONFIG.accessKey === 'VOTRE_CLE_WEB3FORMS') {
-    console.warn('[contact] Clé Web3Forms absente : le formulaire ne peut pas partir. ' +
-      'Récupère-la sur https://web3forms.com/ puis remplace VOTRE_CLE_WEB3FORMS dans js/contact.js.');
-  }
+    const consentError = document.getElementById('error-consent');
+    consentError.textContent = '';
+    consentError.classList.remove('is-visible');
+    event.target.removeAttribute('aria-invalid');
+    hideStatus();
+  });
 })();

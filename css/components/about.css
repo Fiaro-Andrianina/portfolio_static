@@ -23,10 +23,14 @@
 }
 
 .about-text {
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   line-height: 1.7;
-  color: #333333;
+  color: var(--color-body-strong);
   margin: 0;
+}
+
+.about-text + .about-text {
+  margin-top: 14px;
 }
 
 /* Le bouton n'existe qu'en affichage réduit (voir media query) */
@@ -47,7 +51,7 @@
 
   .about-text-wrapper {
     position: relative;
-    max-height: 108px;
+    max-height: 320px;
     overflow: hidden;
     transition: max-height 0.4s ease;
   }
@@ -60,12 +64,12 @@
     left: 0;
     right: 0;
     height: 56px;
-    background: linear-gradient(to bottom, rgba(248, 249, 250, 0), var(--color-surface));
+    background: linear-gradient(to bottom, transparent, var(--color-surface));
     transition: opacity 0.3s ease;
   }
 
   .about-text-wrapper.expanded {
-    max-height: 600px;
+    max-height: 900px;
   }
 
   .about-text-wrapper.expanded::after {

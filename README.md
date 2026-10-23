@@ -1,21 +1,28 @@
 # Portfolio — Fiaro Andrianina
 
-Site statique personnel, sans framework ni dépendance. HTML, CSS et JavaScript natif.
-Déploiement : [Vercel](https://vercel.com) — URL de production : <https://fiaro-andrianina.vercel.app/>
+Site personnel statique, sans framework, sans build et sans dépendance à installer.
+HTML, CSS et JavaScript natif.
+
+- Production : <https://fiaro-andrianina.vercel.app/>
+- Dépôt : <https://github.com/Fiaro-Andrianina/portfolio_static>
 
 ## Structure
 
-```
+```text
 .
-├── index.html            # Page d'accueil (toutes les sections)
-├── contact.html          # Page de contact (formulaire + coordonnées)
+├── index.html              # Accueil : hero, à propos, formation, projets, compétences, expériences, contact
+├── contact.html            # Formulaire + coordonnées directes
+├── confidentialite.html    # Politique de confidentialité
+├── merci.html              # Confirmation après un envoi sans JavaScript
+├── 404.html                # Page introuvable
+├── vercel.json             # En-têtes de sécurité et redirections
 ├── robots.txt
 ├── sitemap.xml
 ├── css/
-│   ├── main.css          # Point d'entrée : uniquement des @import
-│   ├── variables.css     # Charte graphique (couleurs, largeurs, ombres)
-│   ├── base.css          # Reset + styles globaux + utilitaires
-│   └── components/       # Une feuille par section
+│   ├── variables.css       # Couleurs, largeurs, ombres, transitions
+│   ├── base.css            # Reset, focus, skip-link, footer, reveal
+│   ├── no-js.css           # Replis chargés uniquement dans <noscript>
+│   └── components/
 │       ├── nav.css
 │       ├── hero.css
 │       ├── about.css
@@ -24,97 +31,98 @@ Déploiement : [Vercel](https://vercel.com) — URL de production : <https://fia
 │       ├── skills.css
 │       ├── experience.css
 │       ├── contact.css
-│       └── form.css
+│       ├── form.css
+│       └── pages.css       # 404, merci, confidentialité
 ├── js/
-│   ├── main.js           # Menu mobile, barres de compétences, reveal, tilt
-│   └── contact.js        # Validation + envoi du formulaire
+│   ├── main.js             # Menu mobile, focus trap, reveal, tilt, toggle « À propos »
+│   └── contact.js          # Validation et envoi AJAX du formulaire
 └── images/
     ├── favicon.svg
-    ├── og-image.jpg      # Image de partage réseaux sociaux (1200×630)
-    ├── hero-*.webp|jpg   # Portrait du hero
-    ├── *.webp|jpg        # Visuels de projets
-    └── CV_Fiaro_Andrianina.pdf
+    ├── apple-touch-icon.png
+    ├── og-image.jpg        # Partage social (1200×630)
+    ├── hero-*.webp|jpg     # Portrait
+    ├── taxi-ako-*.webp|jpg # Projet Taxi-Be Ako
+    ├── portfolio-*.webp|jpg
+    ├── project-infra.svg   # Schéma d'infrastructure (illustration)
+    └── CV_Fiaro_Andrianina_detaille.pdf
 ```
 
 ## Formulaire de contact
 
-Le formulaire de `contact.html` envoie les messages vers **rktfify@gmail.com** via [Web3Forms](https://web3forms.com/), sans backend : le navigateur poste directement sur `https://api.web3forms.com/submit`.
+Le formulaire de `contact.html` envoie les messages à **rktfify@gmail.com**
+via [FormSubmit](https://formsubmit.co/). Aucun backend n'est nécessaire.
 
-### Mise en service (à faire une seule fois)
+- Avec JavaScript : envoi AJAX vers `https://formsubmit.co/ajax/rktfify@gmail.com`.
+- Sans JavaScript : POST natif vers `https://formsubmit.co/rktfify@gmail.com`,
+  puis redirection vers `merci.html` grâce au champ `_next`.
+- L'endpoint AJAX est dérivé de l'attribut `action` du formulaire : une seule
+  adresse à modifier dans le HTML.
 
-1. Aller sur <https://web3forms.com/> et saisir `rktfify@gmail.com`.
-2. Récupérer la **clé d'accès** reçue par email.
-3. Remplacer `VOTRE_CLE_WEB3FORMS` dans `js/contact.js` :
+### Première mise en service
 
-```js
-const CONTACT_CONFIG = {
-  accessKey: 'VOTRE_CLE_WEB3FORMS', // <-- coller la clé ici
-  recipientEmail: 'rktfify@gmail.com',
-  ...
-};
-```
+FormSubmit exige une activation avant le premier envoi :
 
-Tant que ce n'est pas fait, le formulaire affiche un message d'erreur et oriente vers l'e-mail direct — il ne casse pas la page.
+1. Envoyer un message depuis le site (ou depuis un formulaire de test).
+2. Ouvrir l'e-mail d'activation reçu sur `rktfify@gmail.com` et cliquer sur le lien.
+3. Renvoyer un message pour vérifier la réception.
 
-### Sécurité
+Tant que le formulaire n'est pas activé, la page affiche un message qui renvoie
+vers l'adresse e-mail directe : aucun message n'est perdu silencieusement.
 
-La clé Web3Forms **n'est pas un secret** : c'est un identifiant public lié au site, qui autorise l'envoi vers la seule adresse enregistrée. Elle peut rester dans le code client.
-
-En revanche, ne jamais placer dans ce dépôt un mot de passe SMTP, une clé Resend/SendGrid ou toute autre credential : le code côté navigateur est lisible par tous les visiteurs.
+Après activation, FormSubmit peut fournir une adresse alias propre au formulaire.
+Elle peut remplacer `rktfify@gmail.com` dans l'attribut `action` de
+`contact.html` : l'endpoint AJAX se met à jour automatiquement.
 
 ### Protection anti-spam
 
-Le formulaire est en accès public, sans quoi l'adresse servirait de relais de spam. Les barrières se cumulent :
-
-| Barrière | Où |
-|---|---|
-| hCaptcha | Widget tiers rendu par `web3forms.com/client/script.js` |
-| Piège à robots (`botcheck`) | Masqué en CSS, envoyé dans la charge utile |
-| Rejet des envois sous 3 s | `js/contact.js` → `isTooFast()` |
-| Délai de 25 s entre deux envois | `js/contact.js` → `isInCooldown()` (localStorage) |
-| Filtrage serveur | Web3Forms rejette les charges `botcheck` non vides |
-
-### hCaptcha — à activer dans le dashboard
-
-Le widget est déjà présent dans `contact.html`, mais il **ne protège rien tant qu'il n'est pas activé** côté Web3Forms :
-
-1. <https://app.web3forms.com> → ouvrir le formulaire
-2. Régler hCaptcha comme méthode de blocage du spam
-3. Enregistrer
-
-Aucun compte hCaptcha ni clé à créer : Web3Forms proxifie le service. La seule clé possible est celle de l'offre gratuite (`50b2fe65-b00b-4b9e-ad62-3ba471098be2`), inutilisée ici.
-
-**Le captcha est appliqué avec souplesse.** `js/contact.js` n'exige le widget que s'il est réellement présent dans la page. Si `hcaptcha.com` est bloqué (extension navigateur, pare-feu, coupure réseau), l'envoi n'est pas bloqué : perdre un vrai contact pour un captcha injoignable serait pire que de laisser passer un spam. Les quatre autres barrières restent actives dans tous les cas.
-
-Le token hCaptcha est à usage unique : `resetCaptcha()` le réinitialise après chaque envoi réussi, sinon le deuxième message depuis le même navigateur échouerait.
-
-### Pour un usage intensif
-
-Activer hCaptcha dans le dashboard Web3Forms est la priorité. Ensuite seulement, si le spam persiste, envisager la fonctionnalité **Restrict to Domain** (offre Pro) qui limite les envois à `fiaro-andrianina.vercel.app`.
+- Champ piège `_honey`, masqué en CSS et invisible pour les humains.
+- Rejet des envois effectués moins de 3 secondes après le chargement.
+- Filtrage côté FormSubmit.
 
 ## Conventions
 
-- **Aucune dépendance.** Ne pas introduire de framework ou de build step sans raison : le site doit rester déployable tel quel sur Vercel.
-- **CSS** : toutes les couleurs et largeurs passent par `variables.css`. Pas de valeur codée en dur dans les composants.
-- **Pas de `style="..."` dans le HTML.** Toute mise en forme passe par une classe.
-- **Images** : format WebP avec repli JPEG, dimensions (`width`/`height`) obligatoires pour éviter le décalage de mise en page, `loading="lazy"` sauf pour le hero.
-- **JS** : un seul IIFE dans `js/main.js`, sans dépendance globale. Toute animation non essentials doit respecter `prefers-reduced-motion` et rester facultative (le site doit rester lisible sans JavaScript).
+- **Aucune dépendance et aucun build.** Le site doit rester déployable tel quel.
+- **CSS** : les couleurs, rayons, ombres et transitions passent par `variables.css`.
+- **Pas de style inline dans le HTML.** Les styles dynamiques (tilt) sont appliqués
+  via des variables CSS par `js/main.js`.
+- **Images** : dimensions `width`/`height` obligatoires, `loading="lazy"` sauf pour
+  le portrait du hero, formats WebP avec repli JPEG quand c'est pertinent.
+- **Accessibilité** : navigation clavier, `aria-current`, focus visible, `skip-link`,
+  `prefers-reduced-motion`, repli complet sans JavaScript.
+- **JavaScript** : scripts chargés en `defer`, un IIFE par fichier, aucune variable
+  globale.
 
-## Images manquantes
+## Vérifications locales
 
-Les visuels `images/project-infra.svg` et `images/project-garage.svg` sont des **placeholders** générés pour les projets 02 et 04. Les remplacer par de vraies captures d'écran.
-
-Pour compresser une nouvelle image :
+Servir le dossier avec un serveur statique (les liens relatifs et le formulaire
+ne fonctionnent pas correctement en `file://`) :
 
 ```bash
-magick source.png -resize 800x -quality 82 -strip image-800.webp
-magick source.png -background white -alpha remove -alpha off \
-  -resize 800x -interlace Plane -quality 86 -strip image.jpg
+python3 -m http.server 8080
+# puis ouvrir http://localhost:8080/
 ```
 
-## Après un déploiement
+Contrôles rapides :
 
-Si l'URL change, mettre à jour : `canonical`, `og:url`, `twitter:*`, `robots.txt`, `sitemap.xml`. Penser aussi à la page `contact.html`.
+```bash
+node --check js/main.js
+node --check js/contact.js
+python3 -m json.tool vercel.json > /dev/null
+```
+
+## Déploiement Vercel
+
+Le projet n'a besoin d'aucune commande de build : Vercel sert directement les
+fichiers du dépôt. `vercel.json` ajoute les en-têtes de sécurité
+(`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`,
+`Permissions-Policy`, HSTS) et redirige `/index.html` vers `/`.
+
+Si le domaine change, mettre à jour :
+
+- `canonical`, `og:url`, `twitter:*` dans `index.html`, `contact.html`
+  et `confidentialite.html` ;
+- `sitemap.xml` ;
+- le champ `_next` du formulaire dans `contact.html`.
 
 ## Licence
 

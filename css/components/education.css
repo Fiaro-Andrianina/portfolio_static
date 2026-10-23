@@ -23,13 +23,13 @@
 }
 
 .education-card:hover {
-  border-color: rgba(0, 0, 0, 0.2);
+  border-color: var(--color-overlay);
   transform: translateY(-3px);
 }
 
 .education-tag {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--color-muted);
   text-transform: uppercase;
@@ -38,17 +38,24 @@
 
 .education-name {
   font-size: 1.1rem;
-  margin: 8px 0;
+  margin: 8px 0 4px;
   font-weight: 700;
   color: var(--color-text);
   letter-spacing: -0.01em;
+}
+
+.education-school {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  margin-bottom: 10px;
 }
 
 .education-desc {
   font-size: 0.9rem;
   color: var(--color-body);
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 @media (max-width: 480px) {

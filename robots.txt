@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /merci.html
 
 Sitemap: https://fiaro-andrianina.vercel.app/sitemap.xml

@@ -1,0 +1,82 @@
+/* ==========================================================================
+   REPLIS SANS JAVASCRIPT
+   Ce fichier n'est chargé que via <noscript> : il ne s'applique donc que
+   lorsque JavaScript est désactivé.
+   ========================================================================== */
+
+/* Navigation toujours visible et utilisable */
+.nav-toggle {
+  display: none !important;
+}
+
+.nav-menu {
+  position: static !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 24px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+.nav-links {
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 24px !important;
+}
+
+.nav-links a {
+  font-size: 0.92rem !important;
+  font-weight: 500 !important;
+  padding: 0 !important;
+}
+
+/* Le texte « À propos » est intégralement visible */
+.about-text-wrapper {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.about-text-wrapper::after,
+.about-toggle-btn {
+  display: none !important;
+}
+
+/* Aucune animation d'apparition ne doit masquer le contenu */
+.reveal {
+  opacity: 1 !important;
+  translate: none !important;
+}
+
+@media (max-width: 900px) {
+  .navbar {
+    flex-wrap: wrap;
+  }
+
+  .nav-menu {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+    width: 100%;
+    padding-top: 16px !important;
+  }
+
+  .nav-links {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+  }
+
+  .nav-links a {
+    font-size: 1.05rem !important;
+    padding: 6px 0 !important;
+  }
+
+  .nav-cta {
+    width: 100%;
+    justify-content: center;
+  }
+}

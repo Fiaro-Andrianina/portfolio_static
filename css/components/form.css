@@ -12,6 +12,11 @@
   max-width: 60ch;
 }
 
+.contact-page-header .section-title {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  line-height: 1.15;
+}
+
 .contact-page-header p {
   color: var(--color-muted);
   font-size: 1rem;
@@ -56,7 +61,7 @@
 }
 
 .form-label .form-required {
-  color: var(--color-green);
+  color: var(--color-green-strong);
   margin-left: 2px;
 }
 
@@ -92,13 +97,13 @@
 
 .form-input::placeholder,
 .form-textarea::placeholder {
-  color: #9A9A9A;
+  color: var(--color-placeholder);
 }
 
 .form-input:hover,
 .form-select:hover,
 .form-textarea:hover {
-  border-color: #C9C9C9;
+  border-color: var(--color-border-hover);
 }
 
 .form-input:focus-visible,
@@ -110,12 +115,13 @@
 .form-input[aria-invalid="true"],
 .form-textarea[aria-invalid="true"],
 .form-select[aria-invalid="true"] {
-  border-color: #DC2626;
+  border-color: var(--color-danger);
 }
 
 .form-hint {
   font-size: 0.78rem;
   color: var(--color-muted);
+  line-height: 1.5;
 }
 
 /* --- Erreur de champ --- */
@@ -123,11 +129,15 @@
   display: none;
   font-size: 0.8rem;
   font-weight: 500;
-  color: #DC2626;
+  color: var(--color-danger);
 }
 
 .form-error.is-visible {
   display: block;
+}
+
+.form-check + .form-error {
+  margin-top: 6px;
 }
 
 /* --- Case à cocher (consentement) --- */
@@ -143,6 +153,9 @@
   width: 20px;
   height: 20px;
   margin: 0;
+  appearance: auto;
+  -webkit-appearance: checkbox;
+  background-color: initial;
   accent-color: var(--color-ink);
   cursor: pointer;
 }
@@ -171,18 +184,6 @@
   border: 0;
 }
 
-/* --- Captcha hCaptcha ---
-   Le widget est tiers : on ne fait que l'espacer et l'aligner avec la grille. */
-.form-captcha {
-  margin-top: 4px;
-}
-
-/* hCaptcha injecte un iframe : sans cela il déborde du formulaire sur mobile */
-.form-captcha .h-captcha,
-.form-captcha .h-captcha iframe {
-  max-width: 100%;
-}
-
 /* --- Bouton d'envoi --- */
 .form-submit {
   display: inline-flex;
@@ -202,7 +203,7 @@
 }
 
 .form-submit:hover:not(:disabled) {
-  background-color: #222222;
+  background-color: var(--color-ink-hover);
   transform: translateY(-2px);
 }
 
@@ -216,7 +217,7 @@
   width: 16px;
   height: 16px;
   border: 2px solid rgba(255, 255, 255, 0.35);
-  border-top-color: #FFFFFF;
+  border-top-color: var(--color-white);
   border-radius: 50%;
   display: none;
   animation: form-spin 0.7s linear infinite;
@@ -246,16 +247,21 @@
   display: flex;
 }
 
+.form-status:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
 .form-status-success {
-  background-color: #ECFDF5;
-  border: 1px solid #A7F3D0;
-  color: #065F46;
+  background-color: var(--color-success-bg);
+  border: 1px solid var(--color-success-border);
+  color: var(--color-success-text);
 }
 
 .form-status-error {
-  background-color: #FEF2F2;
-  border: 1px solid #FECACA;
-  color: #991B1B;
+  background-color: var(--color-danger-bg);
+  border: 1px solid var(--color-danger-border);
+  color: var(--color-danger);
 }
 
 .form-status-icon {
@@ -319,7 +325,14 @@
 }
 
 .aside-fallback strong {
+  display: block;
   color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.aside-fallback a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 /* ==========================================================================
